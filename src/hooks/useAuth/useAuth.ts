@@ -14,15 +14,16 @@ import { initialState, reducer } from "./reducer";
 export const useAuth = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const tokenFromCookies = Cookies.get("refreshToken");
   useEffect(() => {
-    const tokenFromCookies = Cookies.get("refreshToken");
-
-    if (!state.token) {
+    if (tokenFromCookies) {
       dispatch({ type: actionTypes.ENTERING, payload: tokenFromCookies });
+    }
 
+    if (state.token) {
       getUser();
     }
-  }, []);
+  }, [tokenFromCookies]);
 
   const getUser = async () => {
     dispatch({ type: actionTypes.LOADING });

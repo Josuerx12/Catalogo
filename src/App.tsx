@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import Navmenu from "./components/navbar";
 import Shop from "./pages/shop";
+import Recovery from "./pages/auth/recovery";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/sobre" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/produtos" element={<Shop />} />
+        <Route path="/recovery" element={<Recovery />} />
         <Route path="/registrar-se" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
