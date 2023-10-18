@@ -11,6 +11,7 @@ export const initialState: useAuthState = {
 
 type Action =
   | { type: "LOADING" }
+  | { type: "LOGOUT" }
   | { type: "ENTERING"; payload?: string }
   | { type: "FETCHED"; payload?: User }
   | { type: "ERROR"; payload?: any };
@@ -27,6 +28,14 @@ export const reducer = (state: useAuthState, action: Action) => {
         user: action.payload,
         loading: false,
         errors: undefined,
+      };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        user: undefined,
+        loading: false,
+        errors: undefined,
+        token: undefined,
       };
     case actionTypes.ERROR:
       return { ...state, errors: action.payload, loading: false };

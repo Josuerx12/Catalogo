@@ -31,7 +31,6 @@ export const useAuth = () => {
         headers: { Authorization: `Bearer ${state.token}` },
       });
       const data: userPayload = await res.data.payload;
-
       dispatch({ type: actionTypes.FETCHED, payload: data.user });
     } catch (error: any) {
       dispatch({
@@ -80,7 +79,7 @@ export const useAuth = () => {
     } catch (error: any) {
       dispatch({
         type: actionTypes.ERROR,
-        payload: error.response.data.payload.errors,
+        payload: error?.response?.data.payload.errors,
       });
     }
   };
@@ -103,7 +102,7 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    dispatch({ type: actionTypes.FETCHED, payload: undefined });
+    dispatch({ type: actionTypes.LOGOUT });
     Cookies.remove("refreshToken");
   };
   return {

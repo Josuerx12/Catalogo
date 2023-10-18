@@ -49,6 +49,11 @@ const Navmenu = () => {
                     Loja
                   </Nav.Link>
                 )}
+                {user?.admin && (
+                  <Nav.Link onClick={(e) => handleNavigateNav(e, "/dashboard")}>
+                    Dashboard
+                  </Nav.Link>
+                )}
                 {!user && (
                   <>
                     <Button
