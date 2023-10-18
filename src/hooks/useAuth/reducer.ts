@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { User, useAuthState } from "../../interfaces/user/userInterface";
 import * as actionTypes from "./actionTypes";
 
@@ -21,7 +22,12 @@ export const reducer = (state: useAuthState, action: Action) => {
     case actionTypes.ENTERING:
       return { ...state, token: action.payload, loading: false };
     case actionTypes.FETCHED:
-      return { ...state, user: action.payload, loading: false };
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        errors: undefined,
+      };
     case actionTypes.ERROR:
       return { ...state, errors: action.payload, loading: false };
     default:

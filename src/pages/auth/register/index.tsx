@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
+import { Auth } from "../../../context/authContext";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -11,14 +12,20 @@ const Register = () => {
     confirmPassword: "",
   });
 
+  const { register, loading, errors } = Auth();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log(credentials);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await register(credentials);
+  };
+
   return (
     <div className="auth">
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <h4>Catálogo - Novo Usuário</h4>
         <Form.Group className="mb-3">
           <Form.Label>Nome</Form.Label>
@@ -28,8 +35,10 @@ const Register = () => {
             placeholder="John Doe"
             onChange={(e) => handleChange(e)}
           />
-          <Form.Text className="text-muted">
-            Insira um nome de usuário à qual deseja ser chamado.
+          <Form.Text className={errors?.name ? "text-error" : "text-muted"}>
+            {errors?.name
+              ? errors.name.msg
+              : "Insira um nome de usuário à qual deseja ser chamado."}
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3">
@@ -40,8 +49,10 @@ const Register = () => {
             placeholder="john_doe@email.com"
             onChange={(e) => handleChange(e)}
           />
-          <Form.Text className="text-muted">
-            Nunca deve-se compartilhar seu email com ninguém.
+          <Form.Text className={errors?.email ? "text-error" : "text-muted"}>
+            {errors?.email
+              ? errors.email.msg
+              : "Insira um e-mail válido para criar um novo usuário."}
           </Form.Text>
         </Form.Group>
 
@@ -53,6 +64,11 @@ const Register = () => {
             placeholder="********"
             onChange={(e) => handleChange(e)}
           />
+          <Form.Text className={errors?.password ? "text-error" : "text-muted"}>
+            {errors?.password
+              ? errors.password.msg
+              : "A senha deve conter no mínimo 8 caracteres, 1 letra maiuscula e caractere especial."}
+          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Confirmação de Senha</Form.Label>
@@ -62,20 +78,26 @@ const Register = () => {
             placeholder="********"
             onChange={(e) => handleChange(e)}
           />
+          <Form.Text
+            className={errors?.confirmPassword ? "text-error" : "text-muted"}
+          >
+            {errors?.confirmPassword
+              ? errors.confirmPassword.msg
+              : "Confirme sua senha."}
+          </Form.Text>
         </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-          style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-        >
+        <Form.Group className="mb-1">
           <Form.Text className="text-muted">
             Já possui uma conta? <Link to="/login">Clique aqui</Link>.
           </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3">
           <Form.Text className="text-muted">
             Esqueceu sua senha? <Link to="/recovery">Clique aqui</Link>.
           </Form.Text>
         </Form.Group>
-        {credentials.email.length <= 0 || credentials.password.length < 8 ? (
+        {loading ? (
           <Button variant="primary" disabled type="submit">
             Entrar
           </Button>

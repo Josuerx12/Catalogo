@@ -24,8 +24,6 @@ export const useAuth = () => {
     }
   }, [!state.token]);
 
-  console.log(state);
-
   const getUser = async () => {
     dispatch({ type: actionTypes.LOADING });
     try {
@@ -53,6 +51,8 @@ export const useAuth = () => {
 
       Cookies.set("refreshToken", data.payload.token, { expires: 0.5 });
       dispatch({ type: actionTypes.ENTERING, payload: data.payload.token });
+
+      await getUser();
     } catch (error: any) {
       console.log(error);
       dispatch({
@@ -76,10 +76,11 @@ export const useAuth = () => {
 
       Cookies.set("refreshToken", data.payload.token, { expires: 0.5 });
       dispatch({ type: actionTypes.ENTERING, payload: data.payload.token });
+      await getUser();
     } catch (error: any) {
       dispatch({
         type: actionTypes.ERROR,
-        payload: error.response.data.payload.error,
+        payload: error.response.data.payload.errors,
       });
     }
   };
@@ -89,17 +90,21 @@ export const useAuth = () => {
   const recovery = async (email: string) => {
     try {
       await api.post("/auth/recovery", { email });
-      alert("Nova senha enviada por e-mail.");
+      alert(
+        "Nova senha enviada por e-mail, faça login utilizando a nova senha."
+      );
+      dispatch({ type: actionTypes.ENTERING });
     } catch (error: any) {
       dispatch({
         type: actionTypes.ERROR,
-        payload: error.response.data.payload.error,
+        payload: error.response.data.payload.errors,
       });
     }
   };
 
   const logout = () => {
     dispatch({ type: actionTypes.FETCHED, payload: undefined });
+    Cookies.remove("refreshToken");
   };
   return {
     login,

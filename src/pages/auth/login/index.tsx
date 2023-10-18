@@ -18,10 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const res = await login(credentials);
-
-    console.log(res);
+    await login(credentials);
   };
   return (
     <div className="auth">
@@ -36,10 +33,12 @@ const Login = () => {
             required
             onChange={(e) => handleChange(e)}
           />
-          <Form.Text className="text-muted">
-            {!errors?.email
-              ? "Nunca deve-se compartilhar seu email com ninguém."
-              : errors.email.msg}
+          <Form.Text
+            className={errors && errors.email ? "text-error" : "text-muted"}
+          >
+            {errors && errors?.email
+              ? errors.email.msg
+              : "Nunca deve-se compartilhar seu email com ninguém."}
           </Form.Text>
         </Form.Group>
 
@@ -53,16 +52,17 @@ const Login = () => {
             placeholder="********"
             onChange={(e) => handleChange(e)}
           />
+          {errors && errors?.msg && (
+            <Form.Text className="text-error">{errors.msg}</Form.Text>
+          )}
         </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-          style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-        >
+        <Form.Group className="mb-1">
           <Form.Text className="text-muted">
-            Ainda não possui uma conta?
-            <Link to="/registrar-se">Clique aqui</Link>.
+            Já possui uma conta? <Link to="/login">Clique aqui</Link>.
           </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3">
           <Form.Text className="text-muted">
             Esqueceu sua senha? <Link to="/recovery">Clique aqui</Link>.
           </Form.Text>

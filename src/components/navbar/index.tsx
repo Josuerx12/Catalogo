@@ -4,9 +4,11 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
+import { Auth } from "../../context/authContext";
+import Button from "react-bootstrap/Button";
 const Navmenu = () => {
   const navigate = useNavigate();
-
+  const { logout, user } = Auth();
   const handleNavigateNav = (e: React.FormEvent, path: string) => {
     e.preventDefault();
 
@@ -42,28 +44,50 @@ const Navmenu = () => {
                 <Nav.Link onClick={(e) => handleNavigateNav(e, "/Sobre")}>
                   Sobre
                 </Nav.Link>
-                <Nav.Link onClick={(e) => handleNavigateNav(e, "/produtos")}>
-                  Produtos
-                </Nav.Link>
-                <NavDropdown
-                  title="Autentique-se"
-                  id={`offcanvasNavbarDropdown-expand-xxl`}
-                >
-                  <NavDropdown.Item
-                    onClick={(e) => handleNavigateNav(e, "/login")}
+                {user && (
+                  <Nav.Link onClick={(e) => handleNavigateNav(e, "/produtos")}>
+                    Loja
+                  </Nav.Link>
+                )}
+                {!user && (
+                  <>
+                    <Button
+                      className="mb-3"
+                      style={{ marginRight: ".425rem" }}
+                      variant="outline-primary"
+                      onClick={(e) => handleNavigateNav(e, "/registrar-se")}
+                    >
+                      Registrar-se
+                    </Button>
+                    <Button
+                      className="mb-3"
+                      variant="outline-secondary"
+                      onClick={(e) => handleNavigateNav(e, "/login")}
+                    >
+                      Entrar
+                    </Button>
+                  </>
+                )}
+                {user && (
+                  <NavDropdown
+                    title={user.name}
+                    id={`offcanvasNavbarDropdown-expand-xxl`}
                   >
-                    Entrar
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    onClick={(e) => handleNavigateNav(e, "/registrar-se")}
-                  >
-                    Registrar-se
-                  </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={(e) => handleNavigateNav(e, "/login")}
+                    >
+                      Perfil
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={(e) => handleNavigateNav(e, "/registrar-se")}
+                    >
+                      Suporte
+                    </NavDropdown.Item>
 
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item>Suporte</NavDropdown.Item>
-                  <NavDropdown.Item>Sair</NavDropdown.Item>
-                </NavDropdown>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logout}>Sair</NavDropdown.Item>
+                  </NavDropdown>
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

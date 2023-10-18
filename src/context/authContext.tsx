@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext } from "react";
 import { useAuth } from "../hooks/useAuth/useAuth";
 import {
+  Errors,
   User,
   loginCredentials,
   registerCredentials,
@@ -9,19 +10,31 @@ import {
 type context = {
   user?: User;
   loading: boolean;
-  errors?: string[] | string;
+  errors?: Errors;
   login: (credentials: loginCredentials) => Promise<void>;
+  logout: () => void;
   register: (credentials: registerCredentials) => Promise<void>;
+  recovery: (email: string) => Promise<void>;
   getUser: () => Promise<void>;
 };
 
 const authContext = createContext<context | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { user, loading, errors, login, register, getUser } = useAuth();
+  const { user, loading, errors, logout, recovery, login, register, getUser } =
+    useAuth();
   return (
     <authContext.Provider
-      value={{ user, loading, errors, login, register, getUser }}
+      value={{
+        user,
+        loading,
+        errors,
+        logout,
+        recovery,
+        login,
+        register,
+        getUser,
+      }}
     >
       {children}
     </authContext.Provider>

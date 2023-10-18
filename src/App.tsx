@@ -1,5 +1,5 @@
 import "./App.sass";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
@@ -8,19 +8,36 @@ import About from "./pages/about";
 import Navmenu from "./components/navbar";
 import Shop from "./pages/shop";
 import Recovery from "./pages/auth/recovery";
+import { Auth } from "./context/authContext";
 
 function App() {
+  const { user } = Auth();
   return (
     <div className="App">
       <Navmenu />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/produtos" element={<Shop />} />
-        <Route path="/recovery" element={<Recovery />} />
-        <Route path="/registrar-se" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={user?.admin ? <Dashboard /> : <Navigate to="/produtos" />}
+        />
+        <Route
+          path="/produtos"
+          element={user ? <Shop /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/recovery"
+          element={user ? <Navigate to="/produtos" /> : <Recovery />}
+        />
+        <Route
+          path="/registrar-se"
+          element={user ? <Navigate to="/produtos" /> : <Register />}
+        />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/produtos" /> : <Login />}
+        />
       </Routes>
     </div>
   );

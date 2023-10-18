@@ -32,9 +32,45 @@ export interface authPayload {
   };
 }
 
+export interface Errors {
+  name: Name;
+  email: Email;
+  password: Password;
+  confirmPassword: confirmPassword;
+  msg: string | string[];
+}
+
+export interface Name {
+  type: string;
+  msg: string;
+  path: string;
+  location: string;
+}
+
+export interface confirmPassword {
+  type: string;
+  msg: string;
+  path: string;
+  location: string;
+}
+
+export interface Email {
+  type: string;
+  msg: string;
+  path: string;
+  location: string;
+}
+
+export interface Password {
+  type: string;
+  msg: string;
+  path: string;
+  location: string;
+}
+
 export interface useAuthState {
   user?: User;
   token?: string;
   loading: boolean;
-  errors?: string[] | string;
+  errors?: Errors | string[] | string;
 }

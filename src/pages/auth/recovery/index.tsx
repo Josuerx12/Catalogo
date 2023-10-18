@@ -1,46 +1,54 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Auth } from "../../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Recovery = () => {
   const [email, setEmail] = useState("");
-  const [isValid, setIsValid] = useState(false);
+  const navigate = useNavigate();
+  const { recovery, errors } = Auth();
 
-  useEffect(() => {
-    const validateEmail = () => {
-      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      return emailRegex.test(email);
-    };
-    setIsValid(validateEmail());
-  }, [email]);
-
-  console.log(email);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await recovery(email);
+  };
   return (
     <div className="auth">
-      <Form>
-        <h4>Catálogo - Login</h4>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <h4>Catálogo - Recuperação de conta</h4>
         <Form.Group className="mb-3">
           <Form.Label>E-mail</Form.Label>
           <Form.Control
             name="email"
             type="email"
+            required
             placeholder="john_doe@email.com"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Form.Text className="text-muted">
-            Digite o e-mail de sua conta perdida.
+          <Form.Text className={errors?.msg ? "text-error" : "text-muted"}>
+            {errors?.msg
+              ? errors.msg
+              : "Digite o e-mail da sua conta, enviaremos uma nova senha."}
           </Form.Text>
         </Form.Group>
-        {isValid ? (
-          <Button variant="primary" type="submit">
-            Recuperar
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+          }}
+        >
+          <Button variant="primary" className="mb-3" type="submit">
+            Recuperar senha
           </Button>
-        ) : (
-          <Button variant="primary" disabled type="submit">
-            Recuperar
+          <Button
+            variant="success"
+            className="mb-3"
+            onClick={() => navigate("/login")}
+          >
+            Login
           </Button>
-        )}
+        </div>
       </Form>
     </div>
   );
