@@ -23,8 +23,6 @@ const Login = () => {
 
     console.log(res);
   };
-
-  console.log(loading);
   return (
     <div className="auth">
       <Form onSubmit={(e) => handleSubmit(e)}>
@@ -39,7 +37,9 @@ const Login = () => {
             onChange={(e) => handleChange(e)}
           />
           <Form.Text className="text-muted">
-            Nunca deve-se compartilhar seu email com ninguém.
+            {!errors?.email
+              ? "Nunca deve-se compartilhar seu email com ninguém."
+              : errors.email.msg}
           </Form.Text>
         </Form.Group>
 
@@ -68,11 +68,11 @@ const Login = () => {
           </Form.Text>
         </Form.Group>
         {loading ? (
-          <Button variant="primary" type="submit">
+          <Button variant="primary" disabled type="submit">
             Entrar
           </Button>
         ) : (
-          <Button variant="primary" disabled type="submit">
+          <Button variant="primary" type="submit">
             Entrar
           </Button>
         )}
