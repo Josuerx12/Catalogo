@@ -35,7 +35,7 @@ export const useAuth = () => {
     } catch (error: any) {
       dispatch({
         type: actionTypes.ERROR,
-        payload: error.response.data.payload.error,
+        payload: error.response.data.payload.errors,
       });
     }
   };

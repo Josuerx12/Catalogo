@@ -1,13 +1,13 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Product } from "../../interfaces/product/productInterface";
-const Products = (product: Product) => {
+const Products = ({ product }: { product: Product }) => {
   const { _id, name, category, photos, unit, stock, value } = product;
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="mb-3" style={{ margin: "auto", width: "18rem" }}>
       <Card.Img
         variant="top"
-        src={`https://user-and-stores-pics.s3.us-east-2.amazonaws.com/${photos[0].photo}`}
+        src={`https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photos[0].photo}`}
       />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
@@ -29,7 +29,7 @@ const Products = (product: Product) => {
             currency: "BRL",
           })}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">Detalhes</Button>
       </Card.Body>
     </Card>
   );

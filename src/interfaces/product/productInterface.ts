@@ -15,7 +15,7 @@ export interface Photo {
 }
 
 export interface useFetchProducts {
-  products?: Product[];
+  products?: Product[] | Product;
   loading: boolean;
   errors?: Errors;
 }
