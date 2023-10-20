@@ -5,7 +5,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "../../context/authContext";
-import Button from "react-bootstrap/Button";
 const Navmenu = () => {
   const navigate = useNavigate();
   const { logout, user } = Auth();
@@ -56,21 +55,14 @@ const Navmenu = () => {
                 )}
                 {!user && (
                   <>
-                    <Button
-                      className="mb-3"
-                      style={{ marginRight: ".425rem" }}
-                      variant="outline-primary"
+                    <Nav.Link onClick={(e) => handleNavigateNav(e, "/login")}>
+                      Entrar
+                    </Nav.Link>
+                    <Nav.Link
                       onClick={(e) => handleNavigateNav(e, "/registrar-se")}
                     >
                       Registrar-se
-                    </Button>
-                    <Button
-                      className="mb-3"
-                      variant="outline-secondary"
-                      onClick={(e) => handleNavigateNav(e, "/login")}
-                    >
-                      Entrar
-                    </Button>
+                    </Nav.Link>
                   </>
                 )}
                 {user && (
@@ -79,7 +71,7 @@ const Navmenu = () => {
                     id={`offcanvasNavbarDropdown-expand-xxl`}
                   >
                     <NavDropdown.Item
-                      onClick={(e) => handleNavigateNav(e, "/login")}
+                      onClick={(e) => handleNavigateNav(e, "/perfil")}
                     >
                       Perfil
                     </NavDropdown.Item>

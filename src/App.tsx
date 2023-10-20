@@ -9,6 +9,7 @@ import Navmenu from "./components/navbar";
 import Shop from "./pages/shop";
 import Recovery from "./pages/auth/recovery";
 import { Auth } from "./context/authContext";
+import User from "./pages/userProfile";
 
 function App() {
   const { user } = Auth();
@@ -18,6 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />
+        <Route
+          path="/perfil"
+          element={user ? <User /> : <Navigate to="/login" />}
+        />
         <Route
           path="/dashboard"
           element={user?.admin ? <Dashboard /> : <Navigate to="/produtos" />}
