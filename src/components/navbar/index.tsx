@@ -36,7 +36,7 @@ const Navmenu = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav className="justify-content-end flex-grow-1 pe-4">
                 <Nav.Link onClick={(e) => handleNavigateNav(e, "/")}>
                   Início
                 </Nav.Link>
@@ -67,8 +67,9 @@ const Navmenu = () => {
                 )}
                 {user && (
                   <NavDropdown
-                    title={user.name}
-                    id={`offcanvasNavbarDropdown-expand-xxl`}
+                    title={user.name.split(" ")[0]}
+                    id={`offcanvasNavbarDropdown-expand-lg`}
+                    className="pe-4"
                   >
                     <NavDropdown.Item
                       onClick={(e) => handleNavigateNav(e, "/perfil")}

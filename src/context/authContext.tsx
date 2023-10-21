@@ -13,6 +13,7 @@ type context = {
   errors?: Errors;
   login: (credentials: loginCredentials) => Promise<void>;
   logout: () => void;
+  editUser: (formData: FormData) => Promise<void>;
   register: (credentials: registerCredentials) => Promise<void>;
   recovery: (email: string) => Promise<void>;
   getUser: () => Promise<void>;
@@ -21,8 +22,17 @@ type context = {
 const authContext = createContext<context | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { user, loading, errors, logout, recovery, login, register, getUser } =
-    useAuth();
+  const {
+    user,
+    loading,
+    errors,
+    logout,
+    editUser,
+    recovery,
+    login,
+    register,
+    getUser,
+  } = useAuth();
   return (
     <authContext.Provider
       value={{
@@ -30,6 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         loading,
         errors,
         logout,
+        editUser,
         recovery,
         login,
         register,

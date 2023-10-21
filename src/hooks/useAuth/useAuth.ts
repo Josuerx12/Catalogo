@@ -84,7 +84,24 @@ export const useAuth = () => {
     }
   };
 
-  // const editUser = async (newCredentials) => {};
+  const editUser = async (formData: FormData) => {
+    try {
+      console.log(formData);
+      await api.patch("/auth/editUser", formData, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      console.log("To editando aqui!!");
+      await getUser();
+    } catch (error: any) {
+      console.log(error);
+      dispatch({
+        type: actionTypes.ERROR,
+        payload: error.response.data.payload.errors,
+      });
+    }
+  };
 
   const recovery = async (email: string) => {
     try {
@@ -108,6 +125,7 @@ export const useAuth = () => {
   return {
     login,
     register,
+    editUser,
     getUser,
     logout,
     recovery,
