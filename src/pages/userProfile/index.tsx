@@ -6,14 +6,19 @@ import { HiPencilAlt } from "react-icons/hi";
 import { BsPersonFillLock } from "react-icons/bs";
 import { Auth } from "../../context/authContext";
 import { useState } from "react";
+import Image from "react-bootstrap/Image";
 import EditUserModal from "../../components/editUserModal";
 import ChangePasswordModal from "../../components/changePasswordModal";
 const User = () => {
   const { user } = Auth();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [loadingPhoto, setLoadingPhoto] = useState(true);
+
+  console.log(loadingPhoto);
 
   const handleShowEditModal = () => setShowEditModal((prev) => !prev);
+  const handlePhotoLoading = () => setLoadingPhoto(false);
   const handleChangePasswordModal = () =>
     setShowChangePasswordModal((prev) => !prev);
   return (
@@ -26,17 +31,24 @@ const User = () => {
       <h3 className="text-center mt-4 mb-4 text-dark">Perfil do usuário</h3>
       <Col>
         <Row className="justify-content-md-center">
-          <img
-            className="rounded-circle"
-            style={{ width: "13rem" }}
+          {loadingPhoto && (
+            <Image
+              style={{
+                width: "13rem ",
+              }}
+              src="/carregando-1.gif"
+              roundedCircle
+            />
+          )}
+          <Image
+            style={{ width: "15rem" }}
             src={
               user?.photo
-                ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo} `
+                ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo}`
                 : "/no-profile.jpg"
             }
-            alt={
-              user?.photo ? user.photo : "Usuário não possui foto de perfil."
-            }
+            onLoad={handlePhotoLoading}
+            roundedCircle
           />
         </Row>
         <Row className="justify-content-md-center">
