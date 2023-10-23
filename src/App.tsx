@@ -3,13 +3,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
-import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import Navmenu from "./components/navbar";
 import Shop from "./pages/shop";
 import Recovery from "./pages/auth/recovery";
 import { Auth } from "./context/authContext";
 import User from "./pages/userProfile";
+import UsersDashboard from "./pages/dashboards/users";
+import ProductsDashboard from "./pages/dashboards/products";
 
 function App() {
   const { user } = Auth();
@@ -24,8 +25,16 @@ function App() {
           element={user ? <User /> : <Navigate to="/login" />}
         />
         <Route
-          path="/dashboard"
-          element={user?.admin ? <Dashboard /> : <Navigate to="/produtos" />}
+          path="/dashboard/usuarios"
+          element={
+            user?.admin ? <UsersDashboard /> : <Navigate to="/produtos" />
+          }
+        />
+        <Route
+          path="/dashboard/produtos"
+          element={
+            user?.admin ? <ProductsDashboard /> : <Navigate to="/produtos" />
+          }
         />
         <Route
           path="/produtos"

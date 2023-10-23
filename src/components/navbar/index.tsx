@@ -49,9 +49,25 @@ const Navmenu = () => {
                   </Nav.Link>
                 )}
                 {user?.admin && (
-                  <Nav.Link onClick={(e) => handleNavigateNav(e, "/dashboard")}>
-                    Dashboard
-                  </Nav.Link>
+                  <NavDropdown
+                    title="Dashboards"
+                    id={`offcanvasNavbarDropdown-expand-lg`}
+                  >
+                    <NavDropdown.Item
+                      onClick={(e) =>
+                        handleNavigateNav(e, "/dashboard/usuarios")
+                      }
+                    >
+                      Usuários
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={(e) =>
+                        handleNavigateNav(e, "/dashboard/produtos")
+                      }
+                    >
+                      Produtos
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 )}
                 {!user && (
                   <>

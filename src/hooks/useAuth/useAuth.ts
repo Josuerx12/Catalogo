@@ -86,13 +86,11 @@ export const useAuth = () => {
 
   const editUser = async (formData: FormData) => {
     try {
-      console.log(formData);
       await api.patch("/auth/editUser", formData, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
       });
-      console.log("To editando aqui!!");
       await getUser();
     } catch (error: any) {
       console.log(error);
