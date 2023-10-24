@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User, useAuthState } from "../../interfaces/user/userInterface";
+import { User, useAuthState } from "../../interfaces/user/UserInterface";
 import * as actionTypes from "./actionTypes";
 
 export const initialState: useAuthState = {

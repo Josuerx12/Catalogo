@@ -4,6 +4,8 @@ export interface User {
   email: string;
   photo?: string | null;
   admin: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface userPayload {

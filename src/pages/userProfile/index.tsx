@@ -34,14 +34,14 @@ const User = () => {
           {loadingPhoto && (
             <Image
               style={{
-                width: "13rem ",
+                width: "15rem ",
               }}
               src="/carregando-1.gif"
               roundedCircle
             />
           )}
           <Image
-            style={{ width: "15rem" }}
+            style={loadingPhoto ? { display: "none" } : { width: "15rem" }}
             src={
               user?.photo
                 ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo}`

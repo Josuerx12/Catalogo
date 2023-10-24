@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { Auth } from "../../context/authContext";
 
 type props = {
   show: boolean;
@@ -19,10 +20,21 @@ const ChangePasswordModal = ({ show, handleShow }: props) => {
     confirmPassword: null,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { editUser } = Auth();
 
-    handleShow();
+  const formData = new FormData();
+
+  if (newPassword.password && newPassword.password.length >= 8)
+    formData.append("password", newPassword.password);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.password === newPassword.confirmPassword) {
+      await editUser(formData);
+      handleShow();
+      return;
+    }
+    alert("As senhas devem ser iguais.");
   };
 
   return (
