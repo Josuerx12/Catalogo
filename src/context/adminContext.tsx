@@ -6,14 +6,18 @@ type Context = {
   users?: User[] | User;
   loading: boolean;
   errors: string[] | string;
+  editUser: (id: string, credentials: FormData) => Promise<void>;
+  deleteUser: (id: string) => Promise<void>;
 };
 
 const adminContext = createContext<null | Context>(null);
 
 export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
-  const { users, loading, errors } = useAdmin();
+  const { users, loading, errors, editUser, deleteUser } = useAdmin();
   return (
-    <adminContext.Provider value={{ users, loading, errors }}>
+    <adminContext.Provider
+      value={{ users, loading, errors, editUser, deleteUser }}
+    >
       {children}
     </adminContext.Provider>
   );
