@@ -51,6 +51,7 @@ const ChangePasswordModal = ({ show, handleShow }: props) => {
               type="password"
               required
               minLength={8}
+              pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]+$"
               onChange={(e) =>
                 setNewPassword((prev) => ({
                   ...prev,
