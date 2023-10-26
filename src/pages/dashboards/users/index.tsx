@@ -14,9 +14,8 @@ const UsersDashboard = () => {
           style={{ width: "100%", minHeight: "90dvh" }}
           className="d-flex align-items-center justify-content-center"
         >
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </Spinner>
+          <span>Carregando...</span>
+          <Spinner animation="border" role="status"></Spinner>
         </div>
       )}
       {!loading && !errors && (
