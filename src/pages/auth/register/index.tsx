@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Auth } from "../../../context/authContext";
 
 const Register = () => {
@@ -13,10 +13,6 @@ const Register = () => {
   });
 
   const { register, loading, errors } = Auth();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +29,12 @@ const Register = () => {
             name="name"
             type="text"
             placeholder="John Doe"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           <Form.Text className={errors?.name ? "text-error" : "text-muted"}>
             {errors?.name
@@ -47,7 +48,12 @@ const Register = () => {
             name="email"
             type="email"
             placeholder="john_doe@email.com"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           <Form.Text className={errors?.email ? "text-error" : "text-muted"}>
             {errors?.email
@@ -62,7 +68,12 @@ const Register = () => {
             name="password"
             type="password"
             placeholder="********"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           <Form.Text className={errors?.password ? "text-error" : "text-muted"}>
             {errors?.password
@@ -76,7 +87,12 @@ const Register = () => {
             name="confirmPassword"
             type="password"
             placeholder="********"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           <Form.Text
             className={errors?.confirmPassword ? "text-error" : "text-muted"}

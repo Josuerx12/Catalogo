@@ -1,18 +1,36 @@
 import Table from "react-bootstrap/Table";
 import { ProductCommands } from "../../../context/productsContext";
-import ProductInfos from "../../../components/dashboard/productInfo";
+import ProductInfos from "../../../components/dashboardAdmin/products/productInfo";
 import Button from "react-bootstrap/Button";
+import { LuPackagePlus } from "react-icons/lu";
+import { FaFilter } from "react-icons/fa";
+import { useState } from "react";
+import AdminCreateProductModal from "../../../components/dashboardAdmin/products/adminCreateProductModal";
 
 const ProductsDashboard = () => {
   const { products } = ProductCommands();
+  const [showAddProductModal, setShowAddProductModal] = useState(false);
   return (
     <div className="productsDashboard">
+      <AdminCreateProductModal
+        show={showAddProductModal}
+        handleShow={() => setShowAddProductModal((prev) => !prev)}
+      />
       <h3 className="text-center mt-4 mb-3">Dashboard de produtos </h3>
       <div
-        className="d-flex pt-2 pb-2 justify-content-end"
+        className="d-flex pt-2 pb-2 justify-content-end gap-2"
         style={{ width: "90%", margin: "auto" }}
       >
-        <Button variant="primary">Adicionar Produto</Button>
+        <Button variant="primary">
+          Filtrar Produtos <FaFilter style={{ color: "#fafafa" }} />
+        </Button>
+        <Button
+          variant="success"
+          onClick={() => setShowAddProductModal((prev) => !prev)}
+        >
+          <span>Adicionar Novo Produto </span>
+          <LuPackagePlus style={{ fontSize: "1.3rem", textAlign: "center" }} />
+        </Button>
       </div>
       <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
         <thead>

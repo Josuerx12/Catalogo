@@ -2,8 +2,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useState, useRef } from "react";
-import { User } from "../../interfaces/user/userInterface";
-import { Admin } from "../../context/adminContext";
+import { User } from "../../../../interfaces/user/userInterface";
+import { Admin } from "../../../../context/adminContext";
 type props = {
   handleShow: () => void;
   show: boolean;

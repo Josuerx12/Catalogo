@@ -1,14 +1,27 @@
 import Table from "react-bootstrap/Table";
-import UsersInfo from "../../../components/dashboard/usersInfo";
+import UsersInfo from "../../../components/dashboardAdmin/user/usersInfo";
 import { Admin } from "../../../context/adminContext";
 import { User } from "../../../interfaces/user/userInterface";
 import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
+import { FaFilter, FaUserPlus } from "react-icons/fa";
 
 const UsersDashboard = () => {
-  const { users, loading, errors } = Admin();
+  const { users, loading, userErrors } = Admin();
   return (
     <div className="usersDashboard">
       <h3 className="text-center mt-4 mb-3">Dashboard de usuários </h3>
+      <div
+        className="d-flex pt-2 pb-2 justify-content-end gap-2"
+        style={{ width: "90%", margin: "auto" }}
+      >
+        <Button variant="primary">
+          Filtrar Usuários <FaFilter style={{ color: "#fafafa" }} />
+        </Button>
+        <Button variant="success" style={{ textAlign: "center" }}>
+          Criar Novo Usuário <FaUserPlus style={{ fontSize: "1.3rem" }} />
+        </Button>
+      </div>
       {loading && (
         <div
           style={{ width: "100%", minHeight: "90dvh" }}
@@ -18,7 +31,7 @@ const UsersDashboard = () => {
           <Spinner animation="border" role="status"></Spinner>
         </div>
       )}
-      {!loading && !errors && (
+      {!loading && !userErrors && (
         <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
           <thead>
             <tr>
@@ -33,7 +46,7 @@ const UsersDashboard = () => {
           </thead>
           <tbody>
             {!loading &&
-              !errors &&
+              !userErrors &&
               Array.isArray(users) &&
               users?.map((user: User) => (
                 <UsersInfo user={user} key={user._id} />

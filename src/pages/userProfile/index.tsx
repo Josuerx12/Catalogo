@@ -7,8 +7,8 @@ import { BsPersonFillLock } from "react-icons/bs";
 import { Auth } from "../../context/authContext";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
-import EditUserModal from "../../components/editUserModal";
-import ChangePasswordModal from "../../components/changePasswordModal";
+import EditUserModal from "../../components/userProfile/editUserModal";
+import ChangePasswordModal from "../../components/userProfile/changePasswordModal";
 const User = () => {
   const { user } = Auth();
   const [showEditModal, setShowEditModal] = useState(false);

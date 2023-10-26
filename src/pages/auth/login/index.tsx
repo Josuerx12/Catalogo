@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Auth } from "../../../context/authContext";
 
 const Login = () => {
@@ -11,10 +11,6 @@ const Login = () => {
   });
 
   const { login, errors, loading } = Auth();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +27,12 @@ const Login = () => {
             type="email"
             placeholder="john_doe@email.com"
             required
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           <Form.Text
             className={errors && errors.email ? "text-error" : "text-muted"}
@@ -50,7 +51,12 @@ const Login = () => {
             required
             minLength={8}
             placeholder="********"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) =>
+              setCredentials((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
           {errors && errors?.msg && (
             <Form.Text className="text-error">{errors.msg}</Form.Text>

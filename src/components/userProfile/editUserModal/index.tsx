@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useRef, useState } from "react";
-import { Auth } from "../../context/authContext";
+import { Auth } from "../../../context/authContext";
 
 type props = {
   show: boolean;

@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Admin } from "../../context/adminContext";
-import { User } from "../../interfaces/user/userInterface";
+import { Admin } from "../../../../context/adminContext";
+import { User } from "../../../../interfaces/user/userInterface";
 import { useState } from "react";
 
 type props = {
