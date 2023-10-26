@@ -48,7 +48,7 @@ const User = () => {
                 : "/no-profile.jpg"
             }
             onLoad={handlePhotoLoading}
-            roundedCircle
+            thumbnail
           />
         </Row>
         <Row className="justify-content-md-center">

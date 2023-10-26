@@ -13,12 +13,12 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
   return (
     <Modal show={show} onHide={handleShow} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Adicionar Novo Produto</Modal.Title>
+        <Modal.Title>Adicionar Novo Produto:</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label>Nome do Produto</Form.Label>
+            <Form.Label>Nome do Produto:</Form.Label>
             <Form.Control
               type="text"
               required
@@ -26,7 +26,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Categoria do produto </Form.Label>
+            <Form.Label>Categoria do produto:</Form.Label>
             <Form.Control
               type="text"
               required
@@ -42,7 +42,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Unidade de Medida do Produto</Form.Label>
+            <Form.Label>Unidade de Medida do Produto:</Form.Label>
             <Form.Select required placeholder="Quatidade de produto em estoque">
               <option value="">Selecione uma medida</option>
               {avaiableUnits.map((option) => (
@@ -51,20 +51,28 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Descrição do Produto</Form.Label>
+            <Form.Label>Descrição do Produto:</Form.Label>
             <Form.Control
               type="text"
               required
               placeholder="Descrição do produto"
             />
           </Form.Group>
+          <Form.Group className="mb-3 d-flex flex-column">
+            <Form.Label>Descrição do Produto:</Form.Label>
+            <Form.Control as="textarea" aria-label="With textarea" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Selecione as Fotos do Produto:</Form.Label>
+            <Form.Control type="file"></Form.Control>
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleShow}>
-          Close
+          Fechar
         </Button>
-        <Button variant="primary">Save Changes</Button>
+        <Button variant="primary">Criar Produto</Button>
       </Modal.Footer>
     </Modal>
   );

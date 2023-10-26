@@ -1,6 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
 import { useRef, useState } from "react";
 import { Auth } from "../../../context/authContext";
 
@@ -40,8 +41,7 @@ const EditUserModal = ({ handleShow, show }: props) => {
       <Modal.Body>
         <Form ref={formRef} onSubmit={handleSubmit}>
           <Form.Group className="mb-3 d-flex align-items-center justify-content-center flex-column">
-            <img
-              className="rounded-circle"
+            <Image
               style={{ width: "13rem" }}
               src={
                 user?.photo
@@ -51,6 +51,7 @@ const EditUserModal = ({ handleShow, show }: props) => {
               alt={
                 user?.photo ? user.photo : "Usuário não possui foto de perfil."
               }
+              thumbnail
             />
             <Form.Label style={{ fontWeight: "600" }}>
               Trocar foto de perfil
@@ -134,7 +135,7 @@ const EditUserModal = ({ handleShow, show }: props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={handleShow}>
-          Close
+          Fechar
         </Button>
         <Button variant="success" onClick={handleSubmit}>
           Alterar dados
