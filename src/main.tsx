@@ -10,13 +10,13 @@ import { AdminProvider } from "./context/adminContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <AdminProvider>
-        <ProductProvider>
+      <ProductProvider>
+        <AdminProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </ProductProvider>
-      </AdminProvider>
+        </AdminProvider>
+      </ProductProvider>
     </AuthProvider>
   </React.StrictMode>
 );

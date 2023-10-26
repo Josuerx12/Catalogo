@@ -7,6 +7,8 @@ export interface Product {
   value: number;
   description: string;
   _id: string;
+  updatedAt: string;
+  createdAt: string;
 }
 
 export interface Photo {

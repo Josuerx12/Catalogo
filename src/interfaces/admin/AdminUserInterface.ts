@@ -11,5 +11,6 @@ interface User {
 export interface InitialState {
   users?: User[] | User;
   loading: boolean;
+  sendingReq: boolean;
   errors?: string[] | string;
 }

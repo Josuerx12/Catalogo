@@ -1,22 +1,49 @@
 import { createContext, useContext } from "react";
-import { useAdmin } from "../hooks/useAdmin/useAdmin";
+import { useAdminUsers } from "../hooks/useAdminUsers/useAdminUser";
 import { User } from "../interfaces/user/userInterface";
+import { useAdminProducts } from "../hooks/useAdminProducts/useAdminProducts";
 
 type Context = {
   users?: User[] | User;
   loading: boolean;
-  errors: string[] | string;
+  userRequesting: boolean;
+  userErrors: string[] | string;
   editUser: (id: string, credentials: FormData) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
+  addProduct: (formDataProduct: FormData) => Promise<void>;
+  editProduct: (id: string, formData: FormData) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
+  productRequesting: boolean;
+  productErrors: string[] | string;
 };
 
 const adminContext = createContext<null | Context>(null);
 
 export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
-  const { users, loading, errors, editUser, deleteUser } = useAdmin();
+  const { users, loading, userErrors, userRequesting, editUser, deleteUser } =
+    useAdminUsers();
+  const {
+    editProduct,
+    addProduct,
+    deleteProduct,
+    productRequesting,
+    productErrors,
+  } = useAdminProducts();
   return (
     <adminContext.Provider
-      value={{ users, loading, errors, editUser, deleteUser }}
+      value={{
+        users,
+        loading,
+        userErrors,
+        userRequesting,
+        editUser,
+        deleteUser,
+        addProduct,
+        editProduct,
+        deleteProduct,
+        productRequesting,
+        productErrors,
+      }}
     >
       {children}
     </adminContext.Provider>

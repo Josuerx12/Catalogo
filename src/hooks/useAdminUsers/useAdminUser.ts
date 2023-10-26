@@ -6,7 +6,7 @@ import * as actionTypes from "./actionTypes";
 import { api } from "../../utils/apiConnection";
 import { Auth } from "../../context/authContext";
 
-export const useAdmin = () => {
+export const useAdminUsers = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user } = Auth();
   const token = Cookies.get("refreshToken");
@@ -33,14 +33,17 @@ export const useAdmin = () => {
   };
 
   const deleteUser = async (id: string) => {
+    dispatch({ type: actionTypes.sending });
     try {
       const res = await api.delete(`/auth/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(res.data.payload);
       await getUsers();
+      dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {
       console.log(error);
+      dispatch({ type: actionTypes.reqResult });
       dispatch({
         type: actionTypes.errors,
         payload: error.response.data.payload.errors,
@@ -49,14 +52,17 @@ export const useAdmin = () => {
   };
 
   const editUser = async (id: string, credentials: FormData) => {
+    dispatch({ type: actionTypes.sending });
     try {
       const res = await api.patch(`/auth/editUser/${id}`, credentials, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(res.data.payload);
       await getUsers();
+      dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {
       console.log(error);
+      dispatch({ type: actionTypes.reqResult });
       dispatch({
         type: actionTypes.errors,
         payload: error.response.data.payload.errors,
@@ -66,7 +72,8 @@ export const useAdmin = () => {
   return {
     users: state.users,
     loading: state.loading,
-    errors: state.errors,
+    userErrors: state.errors,
+    userRequesting: state.sendingReq,
     deleteUser,
     editUser,
   };

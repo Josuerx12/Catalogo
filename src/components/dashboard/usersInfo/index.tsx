@@ -1,10 +1,10 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { User } from "../../interfaces/user/userInterface";
+import { User } from "../../../interfaces/user/userInterface";
 import { useState } from "react";
-import ConfirmDeleteUserModal from "../confirmDeleteUserModal";
-import AdminEditUserModal from "../adminEditUserModal";
+import ConfirmDeleteUserModal from "../../confirmDeleteUserModal";
+import AdminEditUserModal from "../../adminEditUserModal";
 const UsersInfo = ({ user }: { user: User }) => {
   const [showDeleteUserModal, setshowDeleteUserModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
@@ -13,6 +13,9 @@ const UsersInfo = ({ user }: { user: User }) => {
     setshowDeleteUserModal((prev) => !prev);
 
   const handleShowEditUserModal = () => setShowEditUserModal((prev) => !prev);
+
+  const createdAt = new Date(user.createdAt).toLocaleString("pt-BR");
+  const updatedAt = new Date(user.updatedAt).toLocaleString("pt-BR");
   return (
     <>
       <ConfirmDeleteUserModal
@@ -26,18 +29,20 @@ const UsersInfo = ({ user }: { user: User }) => {
         user={user}
       />
       <tr>
-        <td>{user?._id}</td>
-        <td>{user?.name}</td>
-        <td>{user?.email}</td>
-        <td>{user?.admin ? "Sim" : "Não"}</td>
-        <td>{new Date(user?.createdAt).toLocaleDateString("pt-BR")}</td>
-        <td>{new Date(user?.updatedAt).toLocaleDateString("pt-BR")}</td>
-        <td>
+        <td className="text-center">{user?._id}</td>
+        <td className="text-center">{user?.name}</td>
+        <td className="text-center">{user?.email}</td>
+        <td className="text-center">{user?.admin ? "Sim" : "Não"}</td>
+        <td className="text-center">{createdAt}</td>
+        <td className="text-center">{updatedAt}</td>
+        <td className="text-center">
           <DropdownButton
-            id="dropdown-basic-button"
+            id="dropdown-basic"
+            variant="success"
             title={
-              <span>
-                Gerenciar <RiUserSettingsLine className="text-white" />
+              <span style={{ fontSize: "1.1rem" }}>
+                Gerenciar
+                <RiUserSettingsLine className="text-white" />
               </span>
             }
             size="sm"
