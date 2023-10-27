@@ -34,7 +34,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Quantidade </Form.Label>
+            <Form.Label>Quantidade:</Form.Label>
             <Form.Control
               type="number"
               required
@@ -51,28 +51,28 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Descrição do Produto:</Form.Label>
+            <Form.Label>Preço:</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               required
-              placeholder="Descrição do produto"
+              placeholder="Preço do produto"
             />
           </Form.Group>
           <Form.Group className="mb-3 d-flex flex-column">
             <Form.Label>Descrição do Produto:</Form.Label>
-            <Form.Control as="textarea" aria-label="With textarea" />
+            <Form.Control as="textarea" rows={4} aria-label="With textarea" />
           </Form.Group>
           <Form.Group>
             <Form.Label>Selecione as Fotos do Produto:</Form.Label>
-            <Form.Control type="file"></Form.Control>
+            <Form.Control type="file" multiple={true} accept="image/*" />
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleShow}>
+        <Button variant="danger" onClick={handleShow}>
           Fechar
         </Button>
-        <Button variant="primary">Criar Produto</Button>
+        <Button variant="success">Criar Produto</Button>
       </Modal.Footer>
     </Modal>
   );

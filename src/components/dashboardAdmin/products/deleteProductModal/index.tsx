@@ -11,14 +11,22 @@ const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
   return (
     <Modal show={show} onHide={handleShow} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>Deletar Produto</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+      <Modal.Body>
+        <p>Tem certeza que deseja deletar o produto?</p>
+        <p>
+          nome: <b>{product.name}</b>
+        </p>
+        <p>
+          ID: <b> {product._id}</b>
+        </p>
+      </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleShow}>
-          Close
+        <Button variant="danger" onClick={handleShow}>
+          Fechar
         </Button>
-        <Button variant="primary">Save Changes</Button>
+        <Button variant="success">Deletar Produto</Button>
       </Modal.Footer>
     </Modal>
   );
