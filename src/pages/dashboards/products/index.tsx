@@ -32,26 +32,45 @@ const ProductsDashboard = () => {
           <LuPackagePlus style={{ fontSize: "1.3rem", textAlign: "center" }} />
         </Button>
       </div>
-      <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
-        <thead>
-          <tr>
-            <th className="text-center text-uppercase">id</th>
-            <th className="text-center text-uppercase">nome do produto</th>
-            <th className="text-center text-uppercase">categoria</th>
-            <th className="text-center text-uppercase">estoque</th>
-            <th className="text-center text-uppercase">valor</th>
-            <th className="text-center text-uppercase">adicionado dia</th>
-            <th className="text-center text-uppercase">atualizado dia</th>
-            <th className="text-center text-uppercase">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(products) &&
-            products.map((product) => (
+
+      {Array.isArray(products) && products?.length > 0 ? (
+        <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
+          <thead>
+            <tr>
+              <th className="text-center text-uppercase">id</th>
+              <th className="text-center text-uppercase">nome do produto</th>
+              <th className="text-center text-uppercase">categoria</th>
+              <th className="text-center text-uppercase">estoque</th>
+              <th className="text-center text-uppercase">valor</th>
+              <th className="text-center text-uppercase">adicionado dia</th>
+              <th className="text-center text-uppercase">atualizado dia</th>
+              <th className="text-center text-uppercase">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
               <ProductInfos key={product._id} product={product} />
             ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      ) : (
+        <div>
+          <p className="text-center" style={{ fontSize: "1.2rem" }}>
+            Nenhum produto encontrado.{" "}
+          </p>
+          <p className="text-center" style={{ fontSize: "1.2rem" }}>
+            Para adicionar um novo produto
+            <span
+              className="link-primary"
+              style={{ cursor: "pointer" }}
+              onClick={() => setShowAddProductModal((prev) => !prev)}
+            >
+              {" "}
+              Clique aqui
+            </span>
+          </p>
+        </div>
+      )}
     </div>
   );
 };

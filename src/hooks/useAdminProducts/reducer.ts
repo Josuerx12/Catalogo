@@ -17,7 +17,7 @@ export const reducer = (state: InitialState, action: Action) => {
     case actionTypes.sendingReq:
       return { ...state, sendingReq: true };
     case actionTypes.overReq:
-      return { ...state, sendigReq: false };
+      return { ...state, sendingReq: false };
     case actionTypes.errors:
       return { ...state, errors: action.payload };
   }

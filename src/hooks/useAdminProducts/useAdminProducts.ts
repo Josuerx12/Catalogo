@@ -42,15 +42,18 @@ export const useAdminProducts = () => {
   const deleteProduct = async (id: string) => {
     dispatch({ type: actionTypes.sendingReq });
     try {
-      const res = await api.delete(`/products/${id}`, {
+      await api.delete(`/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(res.data.payload);
-      await getProducts();
       dispatch({ type: actionTypes.overReq });
+      await getProducts();
     } catch (error: any) {
       console.log(error);
       dispatch({ type: actionTypes.overReq });
+      dispatch({
+        type: actionTypes.errors,
+        payload: error.response.data.payload.msg,
+      });
     }
   };
 

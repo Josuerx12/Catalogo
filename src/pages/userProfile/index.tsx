@@ -6,7 +6,6 @@ import { HiPencilAlt } from "react-icons/hi";
 import { BsPersonFillLock } from "react-icons/bs";
 import { Auth } from "../../context/authContext";
 import { useState } from "react";
-import Image from "react-bootstrap/Image";
 import EditUserModal from "../../components/userProfile/editUserModal";
 import ChangePasswordModal from "../../components/userProfile/changePasswordModal";
 const User = () => {
@@ -32,23 +31,28 @@ const User = () => {
       <Col>
         <Row className="justify-content-md-center">
           {loadingPhoto && (
-            <Image
+            <img
+              className="rounded shadow bg-body"
               style={{
-                width: "15rem ",
+                width: "14rem ",
+                height: "10rem",
               }}
               src="/carregando-1.gif"
-              roundedCircle
             />
           )}
-          <Image
-            style={loadingPhoto ? { display: "none" } : { width: "15rem" }}
+          <img
+            style={
+              loadingPhoto
+                ? { display: "none" }
+                : { width: "14rem", height: "12rem" }
+            }
+            className="rounded shadow bg-body p-0"
             src={
               user?.photo
                 ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo}`
                 : "/no-profile.jpg"
             }
             onLoad={handlePhotoLoading}
-            thumbnail
           />
         </Row>
         <Row className="justify-content-md-center">

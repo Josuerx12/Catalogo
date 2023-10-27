@@ -1,7 +1,6 @@
 import { Product } from "../../../../interfaces/product/ProductInterface";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Carousel from "react-bootstrap/Carousel";
 import Form from "react-bootstrap/Form";
 
 type props = {
@@ -18,35 +17,30 @@ const AdminEditProductModal = ({ show, handleShow, product }: props) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Carousel data-bs-theme="dark" fade={true} slide={false} touch={true}>
+          <h5 className="text-center">Fotos do Produto</h5>
+          <div className="d-flex gap-4 justify-content-center align-items-center border p-3 mb-4 flex-nowrap overflow-visible">
             {product.photos
-              ? product.photos.map((photo, index) => (
-                  <Carousel.Item interval={6000}>
+              ? product.photos.map((photo) => (
+                  <div
+                    className="d-flex flex-column gap-3 overflow-visible border p-3 rounded"
+                    key={photo._id}
+                  >
                     <img
+                      className="rounded shadow bg-body"
                       style={{
-                        width: "100%",
-                        height: "14rem",
-                        margin: "0 auto",
+                        width: "10rem",
+                        height: "8rem",
                       }}
                       src={`https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photo.photo}`}
                       alt={photo.photo}
                     />
-                    <Carousel.Caption
-                      style={{
-                        background: "#ffffffe6",
-                        width: "fit-content",
-                        margin: "auto",
-                        padding: "1rem",
-                        borderRadius: ".425rem",
-                      }}
-                    >
-                      <h4>Foto 0{index + 1}</h4>
-                      <Button variant="danger">Deletar Foto</Button>
-                    </Carousel.Caption>
-                  </Carousel.Item>
+                    <Button variant="outline-danger" size="sm">
+                      Deletar Foto
+                    </Button>
+                  </div>
                 ))
               : ""}
-          </Carousel>
+          </div>
           <Form.Group className="mb-3">
             <Form.Label>Adicione novas fotos ao seu produto:</Form.Label>
             <Form.Control type="file" multiple={true} accept="image/*" />
@@ -82,8 +76,10 @@ const AdminEditProductModal = ({ show, handleShow, product }: props) => {
             <Form.Label>Unidade de Medida do Produto:</Form.Label>
             <Form.Select required defaultValue={product.unit}>
               <option value="">Selecione uma medida</option>
-              {avaiableUnits.map((option) => (
-                <option value={option}>{option.toLowerCase()}</option>
+              {avaiableUnits.map((option, index) => (
+                <option key={index} value={option}>
+                  {option.toLowerCase()}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>

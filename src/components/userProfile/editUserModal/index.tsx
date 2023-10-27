@@ -1,7 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
 import { useRef, useState } from "react";
 import { Auth } from "../../../context/authContext";
 
@@ -40,9 +39,11 @@ const EditUserModal = ({ handleShow, show }: props) => {
       </Modal.Header>
       <Modal.Body>
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <Form.Group className="mb-3 d-flex align-items-center justify-content-center flex-column">
-            <Image
-              style={{ width: "13rem" }}
+          <div className="d-flex flex-column align-items-center justify-content-center mb-4">
+            <h5>Foto de Perfil</h5>
+            <img
+              style={{ width: "14rem", height: "12rem" }}
+              className="rounded shadow bg-body"
               src={
                 user?.photo
                   ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo} `
@@ -51,11 +52,10 @@ const EditUserModal = ({ handleShow, show }: props) => {
               alt={
                 user?.photo ? user.photo : "Usuário não possui foto de perfil."
               }
-              thumbnail
             />
-            <Form.Label style={{ fontWeight: "600" }}>
-              Trocar foto de perfil
-            </Form.Label>
+          </div>
+          <Form.Group className="mb-3 ">
+            <Form.Label>Trocar foto de perfil:</Form.Label>
             <Form.Control
               type="file"
               name="user-avatar"

@@ -3,7 +3,6 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { Product } from "../../../../interfaces/product/ProductInterface";
 import { useState } from "react";
 import { SiGoogletagmanager } from "react-icons/si";
-import AdminCreateProductModal from "../adminCreateProductModal";
 import AdminEditProductModal from "../editProductModal";
 import AdminDeleteProductModal from "../deleteProductModal";
 
