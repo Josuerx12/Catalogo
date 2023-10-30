@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
-import { Product } from "../../interfaces/product/ProductInterface";
+import { Product } from "../../interfaces/product/productInterface";
 const Products = ({ product }: { product: Product }) => {
   const { _id, name, photos, unit, stock, value } = product;
   return (

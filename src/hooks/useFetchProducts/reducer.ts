@@ -2,7 +2,7 @@
 import {
   Product,
   useFetchProducts,
-} from "../../interfaces/product/ProductInterface";
+} from "../../interfaces/product/productInterface";
 import * as actionTypes from "./actionTypes";
 
 export const initialState: useFetchProducts = {

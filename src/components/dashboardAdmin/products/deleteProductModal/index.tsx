@@ -1,4 +1,4 @@
-import { Product } from "../../../../interfaces/product/ProductInterface";
+import { Product } from "../../../../interfaces/product/productInterface";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Admin } from "../../../../context/adminContext";

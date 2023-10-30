@@ -1,4 +1,4 @@
-import { InitialState } from "../../interfaces/admin/AdminProductInterface";
+import { InitialState } from "../../interfaces/admin/adminProductInterface";
 import * as actionTypes from "./actionTypes";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

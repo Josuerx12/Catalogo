@@ -2,7 +2,7 @@ import { ProductCommands } from "../../context/productsContext";
 import Products from "../../components/products";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { Product } from "../../interfaces/product/ProductInterface";
+import { Product } from "../../interfaces/product/productInterface";
 const Shop = () => {
   const { products } = ProductCommands();
   return (

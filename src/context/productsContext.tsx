@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext } from "react";
 import { useProductsCommands } from "../hooks/useFetchProducts/useProductsCommands";
-import { Errors, Product } from "../interfaces/product/ProductInterface";
+import { Errors, Product } from "../interfaces/product/productInterface";
 
 type context = {
   getProducts: () => Promise<void>;
