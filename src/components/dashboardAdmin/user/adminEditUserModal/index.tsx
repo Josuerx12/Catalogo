@@ -55,6 +55,7 @@ const AdminEditUserModal = ({ handleShow, show, user }: props) => {
                   className="rounded-circle"
                   style={{
                     width: "15rem ",
+                    height: "15rem",
                   }}
                   src="/carregando-1.gif"
                 />
@@ -64,7 +65,7 @@ const AdminEditUserModal = ({ handleShow, show, user }: props) => {
                 style={
                   loadingUserPhoto
                     ? { display: "none", margin: "auto" }
-                    : { width: "15rem", margin: "auto" }
+                    : { width: "15rem", height: "15rem", margin: "auto" }
                 }
                 onLoad={handleLoadingPhotoStatus}
                 src={

@@ -42,7 +42,7 @@ const EditUserModal = ({ handleShow, show }: props) => {
           <div className="d-flex flex-column align-items-center justify-content-center mb-4">
             <h5>Foto de Perfil</h5>
             <img
-              style={{ width: "14rem", height: "12rem" }}
+              style={{ width: "15rem", height: "15rem" }}
               className="rounded shadow bg-body"
               src={
                 user?.photo

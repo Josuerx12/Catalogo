@@ -56,11 +56,29 @@ export const useAdminProducts = () => {
       });
     }
   };
+  const deleteImageProduct = async (productID: string, photoID: string) => {
+    dispatch({ type: actionTypes.sendingReq });
+    try {
+      await api.delete(`/products/${productID}/${photoID}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      dispatch({ type: actionTypes.overReq });
+      await getProducts();
+    } catch (error: any) {
+      console.log(error);
+      dispatch({ type: actionTypes.overReq });
+      dispatch({
+        type: actionTypes.errors,
+        payload: error.response.data.payload.msg,
+      });
+    }
+  };
 
   return {
     addProduct,
     editProduct,
     deleteProduct,
+    deleteImageProduct,
     productErrors: state.errors,
     productRequesting: state.sendingReq,
   };

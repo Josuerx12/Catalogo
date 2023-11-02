@@ -11,6 +11,7 @@ import { Auth } from "./context/authContext";
 import User from "./pages/userProfile";
 import UsersDashboard from "./pages/dashboards/users";
 import ProductsDashboard from "./pages/dashboards/products";
+import ProductDetails from "./pages/productDetails";
 
 function App() {
   const { user } = Auth();
@@ -35,6 +36,10 @@ function App() {
           element={
             user?.admin ? <ProductsDashboard /> : <Navigate to="/produtos" />
           }
+        />
+        <Route
+          path="/produto/:id"
+          element={user ? <ProductDetails /> : <Navigate to="/login" />}
         />
         <Route
           path="/produtos"

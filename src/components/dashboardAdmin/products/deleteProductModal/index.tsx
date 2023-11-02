@@ -16,7 +16,7 @@ const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
     await deleteProduct(product._id);
   };
   return (
-    <Modal show={show} onHide={handleShow} backdrop="static">
+    <Modal show={show} onHide={handleShow} size="xl" backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>Deletar Produto</Modal.Title>
       </Modal.Header>
@@ -40,7 +40,7 @@ const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
           </Button>
         )}
         {productRequesting ? (
-          <Button variant="success" disabled>
+          <Button variant="warning" disabled>
             Deletando Produto
           </Button>
         ) : (

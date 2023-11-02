@@ -32,11 +32,14 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
   if (newProductCredentials.category)
     formData.append("category", newProductCredentials.category);
   if (newProductCredentials.stock)
-    formData.append("stock", newProductCredentials.stock);
+    formData.append("stock", parseInt(newProductCredentials.stock).toString());
   if (newProductCredentials.unit)
     formData.append("unit", newProductCredentials.unit);
   if (newProductCredentials.value)
-    formData.append("value", newProductCredentials.value);
+    formData.append(
+      "value",
+      parseFloat(newProductCredentials.value).toString()
+    );
   if (newProductCredentials.description)
     formData.append("description", newProductCredentials.description);
   if (images) {
@@ -53,7 +56,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
   };
 
   return (
-    <Modal show={show} onHide={handleShow} backdrop="static">
+    <Modal show={show} onHide={handleShow} size="xl" backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>Adicionar Novo Produto:</Modal.Title>
       </Modal.Header>
@@ -101,7 +104,8 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
                   [e.target.name]: e.target.value,
                 }))
               }
-              type="number"
+              type="string"
+              pattern="^[1-9]\d*$"
               required
               placeholder="Quatidade de produto em estoque"
             />
@@ -129,7 +133,8 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
           <Form.Group className="mb-3">
             <Form.Label>Preço:</Form.Label>
             <Form.Control
-              type="number"
+              type="string"
+              pattern="^[1-9]\d*(\.\d+)?$"
               step="any"
               onChange={(e) =>
                 setNewProductCredentials((prev) => ({
@@ -181,8 +186,8 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
           </Button>
         )}
         {productRequesting ? (
-          <Button variant="success" disabled>
-            Criar Produto
+          <Button variant="warning" disabled>
+            Criando Produto
           </Button>
         ) : (
           <Button

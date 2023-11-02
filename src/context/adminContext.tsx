@@ -13,6 +13,7 @@ type Context = {
   addProduct: (formDataProduct: FormData) => Promise<void>;
   editProduct: (id: string, formData: FormData) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
+  deleteImageProduct: (productID: string, photoID: string) => Promise<void>;
   productRequesting: boolean;
   productErrors: string[] | string;
 };
@@ -26,6 +27,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
     editProduct,
     addProduct,
     deleteProduct,
+    deleteImageProduct,
     productRequesting,
     productErrors,
   } = useAdminProducts();
@@ -41,6 +43,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
         addProduct,
         editProduct,
         deleteProduct,
+        deleteImageProduct,
         productRequesting,
         productErrors,
       }}
