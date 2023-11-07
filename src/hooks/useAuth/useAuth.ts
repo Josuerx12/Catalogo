@@ -120,12 +120,17 @@ export const useAuth = () => {
     dispatch({ type: actionTypes.LOGOUT });
     Cookies.remove("refreshToken");
   };
+
+  const cleanErrors = () => {
+    dispatch({ type: actionTypes.CLEANERRORS });
+  };
   return {
     login,
     register,
     editUser,
     getUser,
     logout,
+    cleanErrors,
     recovery,
     user: state.user,
     loading: state.loading,

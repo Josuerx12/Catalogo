@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Recovery = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const { recovery, errors } = Auth();
+  const { recovery, errors, cleanErrors } = Auth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,10 @@ const Recovery = () => {
           <Button
             variant="success"
             className="mb-3"
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              navigate("/login");
+              cleanErrors();
+            }}
           >
             Login
           </Button>

@@ -11,14 +11,15 @@ const CarouselProductImages = ({
       slide={false}
       touch
       variant="dark"
-      style={{ width: "40rem", height: "20rem" }}
-      className="mx-auto"
+      style={{ width: "20rem", height: "20rem" }}
+      className="ms-3 rounded"
     >
       {Array.isArray(image) ? (
         image.map((photo) => (
-          <Carousel.Item className="mx-auto">
+          <Carousel.Item>
             <img
-              style={{ width: "40rem", height: "20rem" }}
+              style={{ width: "20rem", height: "20rem" }}
+              className="rounded"
               src={`https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photo.photo}`}
               alt={photo._id}
             />

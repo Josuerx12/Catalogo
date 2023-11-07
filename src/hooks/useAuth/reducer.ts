@@ -13,6 +13,7 @@ type Action =
   | { type: "LOADING" }
   | { type: "LOGOUT" }
   | { type: "ENTERING"; payload?: string }
+  | { type: "CLEANERRORS" }
   | { type: "FETCHED"; payload?: User }
   | { type: "ERROR"; payload?: any };
 
@@ -20,6 +21,8 @@ export const reducer = (state: useAuthState, action: Action) => {
   switch (action.type) {
     case actionTypes.LOADING:
       return { ...state, loading: true };
+    case actionTypes.CLEANERRORS:
+      return { ...state, errors: undefined };
     case actionTypes.ENTERING:
       return { ...state, token: action.payload, loading: false };
     case actionTypes.FETCHED:

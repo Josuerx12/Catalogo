@@ -12,7 +12,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const { register, loading, errors } = Auth();
+  const { register, loading, errors, cleanErrors } = Auth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,22 +104,30 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-1">
           <Form.Text className="text-muted">
-            Já possui uma conta? <Link to="/login">Clique aqui</Link>.
+            Já possui uma conta?{" "}
+            <Link to="/login" onClick={cleanErrors}>
+              Clique aqui
+            </Link>
+            .
           </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Text className="text-muted">
-            Esqueceu sua senha? <Link to="/recovery">Clique aqui</Link>.
+            Esqueceu sua senha?{" "}
+            <Link to="/recovery" onClick={cleanErrors}>
+              Clique aqui
+            </Link>
+            .
           </Form.Text>
         </Form.Group>
         {loading ? (
           <Button variant="primary" disabled type="submit">
-            Entrar
+            Registrando
           </Button>
         ) : (
           <Button variant="primary" type="submit">
-            Entrar
+            Registrar-se
           </Button>
         )}
       </Form>

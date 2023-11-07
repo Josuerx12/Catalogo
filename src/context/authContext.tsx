@@ -13,6 +13,7 @@ type context = {
   errors?: Errors;
   login: (credentials: loginCredentials) => Promise<void>;
   logout: () => void;
+  cleanErrors: () => void;
   editUser: (formData: FormData) => Promise<void>;
   register: (credentials: registerCredentials) => Promise<void>;
   recovery: (email: string) => Promise<void>;
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     recovery,
     login,
     register,
+    cleanErrors,
     getUser,
   } = useAuth();
   return (
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         register,
         getUser,
+        cleanErrors,
       }}
     >
       {children}
