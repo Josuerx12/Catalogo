@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "../../../context/authContext";
 
 const Login = () => {
@@ -16,6 +16,10 @@ const Login = () => {
     e.preventDefault();
     await login(credentials);
   };
+
+  useEffect(() => {
+    cleanErrors();
+  }, []);
   return (
     <div className="auth">
       <Form onSubmit={(e) => handleSubmit(e)}>
@@ -65,20 +69,13 @@ const Login = () => {
         <Form.Group className="mb-1">
           <Form.Text className="text-muted">
             Ainda não possui uma conta?{" "}
-            <Link to="/registrar-se" onClick={cleanErrors}>
-              Clique aqui
-            </Link>
-            .
+            <Link to="/registrar-se">Clique aqui</Link>.
           </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Text className="text-muted">
-            Esqueceu sua senha?{" "}
-            <Link to="/recovery" onClick={cleanErrors}>
-              Clique aqui
-            </Link>
-            .
+            Esqueceu sua senha? <Link to="/recovery">Clique aqui</Link>.
           </Form.Text>
         </Form.Group>
         {loading ? (

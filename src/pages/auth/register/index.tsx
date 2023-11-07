@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "../../../context/authContext";
 
 const Register = () => {
@@ -18,6 +18,10 @@ const Register = () => {
     e.preventDefault();
     await register(credentials);
   };
+
+  useEffect(() => {
+    cleanErrors();
+  }, []);
 
   return (
     <div className="auth">
@@ -104,21 +108,13 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-1">
           <Form.Text className="text-muted">
-            Já possui uma conta?{" "}
-            <Link to="/login" onClick={cleanErrors}>
-              Clique aqui
-            </Link>
-            .
+            Já possui uma conta? <Link to="/login">Clique aqui</Link>.
           </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Text className="text-muted">
-            Esqueceu sua senha?{" "}
-            <Link to="/recovery" onClick={cleanErrors}>
-              Clique aqui
-            </Link>
-            .
+            Esqueceu sua senha? <Link to="/recovery">Clique aqui</Link>.
           </Form.Text>
         </Form.Group>
         {loading ? (

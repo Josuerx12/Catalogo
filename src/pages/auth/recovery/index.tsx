@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,11 @@ const Recovery = () => {
     e.preventDefault();
     await recovery(email);
   };
+
+  useEffect(() => {
+    cleanErrors();
+  }, []);
+
   return (
     <div className="auth">
       <Form onSubmit={(e) => handleSubmit(e)}>
@@ -44,10 +49,7 @@ const Recovery = () => {
           <Button
             variant="success"
             className="mb-3"
-            onClick={() => {
-              navigate("/login");
-              cleanErrors();
-            }}
+            onClick={() => navigate("/login")}
           >
             Login
           </Button>
