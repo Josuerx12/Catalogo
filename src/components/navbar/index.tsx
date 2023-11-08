@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Auth } from "../../context/authContext";
 const Navmenu = () => {
   const navigate = useNavigate();
@@ -43,11 +43,9 @@ const Navmenu = () => {
                 <Nav.Link onClick={(e) => handleNavigateNav(e, "/Sobre")}>
                   Sobre
                 </Nav.Link>
-                {user && (
-                  <Nav.Link onClick={(e) => handleNavigateNav(e, "/produtos")}>
-                    Loja
-                  </Nav.Link>
-                )}
+                <Nav.Link onClick={(e) => handleNavigateNav(e, "/produtos")}>
+                  Produtos disponíveis
+                </Nav.Link>
                 {user?.admin && (
                   <NavDropdown
                     title="Dashboards"
@@ -92,8 +90,14 @@ const Navmenu = () => {
                     >
                       Perfil
                     </NavDropdown.Item>
+
                     <NavDropdown.Item
-                      onClick={(e) => handleNavigateNav(e, "/registrar-se")}
+                      onClick={() =>
+                        window.open(
+                          "https://api.whatsapp.com/send?phone=55022997979633",
+                          "_blank"
+                        )
+                      }
                     >
                       Suporte
                     </NavDropdown.Item>

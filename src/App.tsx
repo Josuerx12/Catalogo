@@ -37,14 +37,8 @@ function App() {
             user?.admin ? <ProductsDashboard /> : <Navigate to="/produtos" />
           }
         />
-        <Route
-          path="/produto/:id"
-          element={user ? <ProductDetails /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/produtos"
-          element={user ? <Shop /> : <Navigate to="/login" />}
-        />
+        <Route path="/produto/:id" element={<ProductDetails />} />
+        <Route path="/produtos" element={<Shop />} />
         <Route
           path="/recovery"
           element={user ? <Navigate to="/produtos" /> : <Recovery />}

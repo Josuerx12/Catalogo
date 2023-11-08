@@ -15,8 +15,8 @@ const CarouselProductImages = ({
       className="ms-3 rounded"
     >
       {Array.isArray(image) ? (
-        image.map((photo) => (
-          <Carousel.Item>
+        image.map((photo, i) => (
+          <Carousel.Item key={i}>
             <img
               style={{ width: "20rem", height: "20rem" }}
               className="rounded"
