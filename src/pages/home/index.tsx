@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           Fazer Login
         </Link>
         <Link
-          to="/registro"
+          to="/registrar-se"
           className="btn btn-secondary"
           style={{ width: "fit-content" }}
         >
