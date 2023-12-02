@@ -30,24 +30,20 @@ const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        {productRequesting ? (
-          <Button variant="danger" disabled onClick={handleShow}>
-            Fechar
-          </Button>
-        ) : (
-          <Button variant="danger" onClick={handleShow}>
-            Fechar
-          </Button>
-        )}
-        {productRequesting ? (
-          <Button variant="warning" disabled>
-            Deletando Produto
-          </Button>
-        ) : (
-          <Button variant="success" onClick={handleDeleteProduct}>
-            Deletar Produto
-          </Button>
-        )}
+        <Button
+          variant="danger"
+          disabled={productRequesting ? true : false}
+          onClick={handleShow}
+        >
+          Cancelar
+        </Button>
+        <Button
+          onClick={handleDeleteProduct}
+          disabled={productRequesting ? true : false}
+          className={productRequesting ? "btn btn-warning" : "btn btn-success"}
+        >
+          {productRequesting ? "Deletando Produto" : "Deletar Produto"}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

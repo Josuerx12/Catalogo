@@ -178,11 +178,11 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
       <Modal.Footer>
         {productRequesting ? (
           <Button variant="danger" disabled onClick={handleShow}>
-            Fechar
+            Cancelar
           </Button>
         ) : (
           <Button variant="danger" onClick={handleShow}>
-            Fechar
+            Cancelar
           </Button>
         )}
         {productRequesting ? (

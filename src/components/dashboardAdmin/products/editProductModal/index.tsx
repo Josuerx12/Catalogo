@@ -207,8 +207,12 @@ const AdminEditProductModal = ({ show, handleShow, product }: props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={handleShow}>
-          Fechar
+        <Button
+          variant="danger"
+          disabled={productRequesting ? true : false}
+          onClick={handleShow}
+        >
+          Cancelar
         </Button>
         <Button
           onClick={() => formRef.current?.requestSubmit()}

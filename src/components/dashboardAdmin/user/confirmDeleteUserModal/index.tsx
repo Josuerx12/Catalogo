@@ -80,7 +80,7 @@ const ConfirmDeleteUserModal = ({ handleShow, show, user }: props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={handleShow}>
-          Fechar
+          Cancelar
         </Button>
         <Button variant="warning" onClick={handleSubmitDelete}>
           Confirmar
