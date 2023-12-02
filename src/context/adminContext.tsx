@@ -1,14 +1,16 @@
 import { createContext, useContext } from "react";
 import { useAdminUsers } from "../hooks/useAdminUsers/useAdminUser";
-import { User } from "../interfaces/user/userInterface";
+import { Errors, User } from "../interfaces/user/userInterface";
 import { useAdminProducts } from "../hooks/useAdminProducts/useAdminProducts";
-
+import { AdminCreateUserCredentials } from "../hooks/useAdminUsers/useAdminUser";
 type Context = {
   users?: User[] | User;
   loading: boolean;
   userRequesting: boolean;
-  userErrors: string[] | string;
+  userErrors?: Errors;
   editUser: (id: string, credentials: FormData) => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  createUser: (data: AdminCreateUserCredentials) => Promise<any>;
   deleteUser: (id: string) => Promise<void>;
   addProduct: (formDataProduct: FormData) => Promise<void>;
   editProduct: (id: string, formData: FormData) => Promise<void>;
@@ -21,8 +23,15 @@ type Context = {
 const adminContext = createContext<null | Context>(null);
 
 export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
-  const { users, loading, userErrors, userRequesting, editUser, deleteUser } =
-    useAdminUsers();
+  const {
+    users,
+    loading,
+    userErrors,
+    userRequesting,
+    createUser,
+    editUser,
+    deleteUser,
+  } = useAdminUsers();
   const {
     editProduct,
     addProduct,
@@ -42,6 +51,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
         deleteUser,
         addProduct,
         editProduct,
+        createUser,
         deleteProduct,
         deleteImageProduct,
         productRequesting,

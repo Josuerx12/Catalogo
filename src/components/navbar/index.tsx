@@ -3,7 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 import { Auth } from "../../context/authContext";
 const Navmenu = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Navmenu = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-4">
+              <Nav className="justify-content-start flex-grow-1 pe-4">
                 <Nav.Link onClick={(e) => handleNavigateNav(e, "/")}>
                   Início
                 </Nav.Link>
@@ -49,7 +50,10 @@ const Navmenu = () => {
                 {user?.admin && (
                   <NavDropdown
                     title="Dashboards"
-                    id={`offcanvasNavbarDropdown-expand-lg`}
+                    drop="down-centered"
+                    menuVariant="dark"
+                    className="pe-4"
+                    id="offcanvasNavbarDropdown-expand-lg"
                   >
                     <NavDropdown.Item
                       onClick={(e) =>
@@ -66,6 +70,30 @@ const Navmenu = () => {
                       Produtos
                     </NavDropdown.Item>
                   </NavDropdown>
+                )}
+              </Nav>
+              <div className="d-flex gap-4 align-items-center ">
+                {user && (
+                  <Link
+                    className="bg-dark p-2 rounded gap-2 text-light"
+                    to="/carrinho"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textDecoration: "none",
+                      color: "#000",
+                      fontSize: "1.2rem",
+                    }}
+                  >
+                    <FaShoppingCart />
+                    <span
+                      className="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center"
+                      style={{ width: "25px", height: "25px" }}
+                    >
+                      0
+                    </span>
+                  </Link>
                 )}
                 {!user && (
                   <>
@@ -84,6 +112,9 @@ const Navmenu = () => {
                     title={user.name.split(" ")[0]}
                     id={`offcanvasNavbarDropdown-expand-lg`}
                     className="pe-4"
+                    drop="down-centered"
+                    menuVariant="dark"
+                    align={{ sm: "end", lg: "start" }}
                   >
                     <NavDropdown.Item
                       onClick={(e) => handleNavigateNav(e, "/perfil")}
@@ -106,7 +137,7 @@ const Navmenu = () => {
                     <NavDropdown.Item onClick={logout}>Sair</NavDropdown.Item>
                   </NavDropdown>
                 )}
-              </Nav>
+              </div>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

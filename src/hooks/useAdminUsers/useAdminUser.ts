@@ -5,7 +5,13 @@ import Cookies from "js-cookie";
 import * as actionTypes from "./actionTypes";
 import { api } from "../../utils/apiConnection";
 import { Auth } from "../../context/authContext";
-
+export type AdminCreateUserCredentials = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  admin: boolean;
+};
 export const useAdminUsers = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user } = Auth();
@@ -32,13 +38,34 @@ export const useAdminUsers = () => {
     }
   };
 
+  const createUser = async (data: AdminCreateUserCredentials) => {
+    dispatch({ type: actionTypes.sending });
+    try {
+      const res = await api.post(`/auth/user/new`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.status === 200) {
+        dispatch({ type: actionTypes.cleanErrors });
+        await getUsers();
+        dispatch({ type: actionTypes.reqResult });
+      }
+      return res;
+    } catch (error: any) {
+      console.log(error);
+      dispatch({
+        type: actionTypes.errors,
+        payload: error.response.data.payload.errors,
+      });
+      return error;
+    }
+  };
+
   const deleteUser = async (id: string) => {
     dispatch({ type: actionTypes.sending });
     try {
-      const res = await api.delete(`/auth/user/${id}`, {
+      await api.delete(`/auth/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(res.data.payload);
       await getUsers();
       dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {
@@ -54,10 +81,9 @@ export const useAdminUsers = () => {
   const editUser = async (id: string, credentials: FormData) => {
     dispatch({ type: actionTypes.sending });
     try {
-      const res = await api.patch(`/auth/editUser/${id}`, credentials, {
+      await api.patch(`/auth/editUser/${id}`, credentials, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(res.data.payload);
       await getUsers();
       dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {
@@ -76,5 +102,6 @@ export const useAdminUsers = () => {
     userRequesting: state.sendingReq,
     deleteUser,
     editUser,
+    createUser,
   };
 };

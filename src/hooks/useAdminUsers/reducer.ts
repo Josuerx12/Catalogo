@@ -14,6 +14,7 @@ type Action =
   | { type: "LOADING" }
   | { type: "SENDING" }
   | { type: "REQRESULT" }
+  | { type: "CLEANERRORS" }
   | { type: "FETCHED"; payload?: User[] }
   | { type: "ERRO"; payload?: any };
 
@@ -29,6 +30,8 @@ export const reducer = (state: InitialState, action: Action) => {
       return { ...state, loading: false, users: action.payload };
     case actionTypes.errors:
       return { ...state, loading: false, errors: action.payload };
+    case actionTypes.cleanErrors:
+      return { ...state, errors: undefined };
     default:
       return { ...state };
   }
