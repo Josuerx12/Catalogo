@@ -37,27 +37,27 @@ const Shop = () => {
             <Products key={item._id} product={item as Product} />
           ))}
         {!items && <p>Nenhum produto cadastrado.</p>}
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          <Pagination>
-            <Pagination.Prev onClick={prevPage} />
-            {Array.from(Array(totalPages)).map((_, i) => (
-              <Pagination.Item
-                key={i + 1}
-                active={page === i + 1 ? true : false}
-                onClick={() => setPage(i + 1)}
-              >
-                {i + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next onClick={nextPage} />
-          </Pagination>
-          <p>
-            Mostrando {actualPage + 1} de{" "}
-            {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
-            resultados.
-          </p>
-        </div>
       </section>
+      <div className="d-flex flex-column justify-content-center align-items-center">
+        <Pagination>
+          <Pagination.Prev onClick={prevPage} />
+          {Array.from(Array(totalPages)).map((_, i) => (
+            <Pagination.Item
+              key={i + 1}
+              active={page === i + 1 ? true : false}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={nextPage} />
+        </Pagination>
+        <p>
+          Mostrando {actualPage + 1} de{" "}
+          {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
+          resultados.
+        </p>
+      </div>
     </div>
   );
 };

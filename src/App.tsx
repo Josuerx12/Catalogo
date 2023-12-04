@@ -12,6 +12,7 @@ import User from "./pages/userProfile";
 import UsersDashboard from "./pages/dashboards/users";
 import ProductsDashboard from "./pages/dashboards/products";
 import ProductDetails from "./pages/productDetails";
+import Cart from "./pages/cart";
 
 function App() {
   const { user } = Auth();
@@ -30,6 +31,10 @@ function App() {
           element={
             user?.admin ? <UsersDashboard /> : <Navigate to="/produtos" />
           }
+        />
+        <Route
+          path="/carrinho"
+          element={user ? <Cart /> : <Navigate to="/login" />}
         />
         <Route
           path="/dashboard/produtos"
