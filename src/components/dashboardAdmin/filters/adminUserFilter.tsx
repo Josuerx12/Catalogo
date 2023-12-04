@@ -24,6 +24,22 @@ const AdminUserFilter = ({ show, handleShow, setFilter }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFilter(formData);
+    handleShow();
+  };
+
+  const cleanFilters = () => {
+    setFilter({
+      id: "",
+      name: "",
+      email: "",
+    });
+
+    setFormData({
+      id: "",
+      name: "",
+      email: "",
+    });
+    handleShow();
   };
 
   return (
@@ -64,9 +80,18 @@ const AdminUserFilter = ({ show, handleShow, setFilter }: Props) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Button type="submit" className="w-100">
-              Filtrar
-            </Button>
+            <div className="d-flex gap-3">
+              <Button variant="outline-primary" type="submit" className="w-50">
+                Filtrar
+              </Button>
+              <Button
+                onClick={cleanFilters}
+                className="w-50"
+                variant="outline-secondary"
+              >
+                Limpar Filtros
+              </Button>
+            </div>
           </Form>
         </Offcanvas.Body>
       </Offcanvas>

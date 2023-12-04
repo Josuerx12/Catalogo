@@ -13,7 +13,7 @@ import AdminUserFilter from "../../../components/dashboardAdmin/filters/adminUse
 
 const UsersDashboard = () => {
   const { users, loading, userErrors } = Admin();
-  const [showCreateUserModal, setShowCreateUserModal] = useState(true);
+  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
   const [page, setPage] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
   const [filters, setFilters] = useState({
@@ -21,8 +21,6 @@ const UsersDashboard = () => {
     name: "",
     email: "",
   });
-
-  console.log(filters);
 
   const { actualPage, total, totalPages, items } = usePagination({
     items: users,
@@ -97,9 +95,21 @@ const UsersDashboard = () => {
             {!loading &&
               !userErrors &&
               Array.isArray(items) &&
-              items.map((user) => (
-                <UsersInfo user={user as User} key={user._id} />
-              ))}
+              items
+                .filter(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (user: any) =>
+                    user._id.toLowerCase().includes(filters.id.toLowerCase()) &&
+                    user.name
+                      .toLowerCase()
+                      .includes(filters.name.toLowerCase()) &&
+                    user.email
+                      .toLowerCase()
+                      .includes(filters.email.toLowerCase())
+                )
+                .map((user) => (
+                  <UsersInfo user={user as User} key={user._id} />
+                ))}
           </tbody>
         </Table>
       )}
