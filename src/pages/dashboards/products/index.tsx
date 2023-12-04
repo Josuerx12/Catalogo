@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Table from "react-bootstrap/Table";
 import { ProductCommands } from "../../../context/productsContext";
 import ProductInfos from "../../../components/dashboardAdmin/products/productInfo";
@@ -9,10 +10,18 @@ import AdminCreateProductModal from "../../../components/dashboardAdmin/products
 import Pagination from "react-bootstrap/Pagination";
 import { usePagination } from "../../../hooks/usePagination/usePagination";
 import { Product } from "../../../interfaces/product/productInterface";
+import AdminProductFilter from "../../../components/dashboardAdmin/filters/adminProductFilter";
 
 const ProductsDashboard = () => {
   const { products } = ProductCommands();
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    id: "",
+    name: "",
+    category: "",
+    description: "",
+  });
   const [page, setPage] = useState(1);
 
   const { actualPage, total, totalPages, items } = usePagination({
@@ -38,12 +47,21 @@ const ProductsDashboard = () => {
         show={showAddProductModal}
         handleShow={() => setShowAddProductModal((prev) => !prev)}
       />
+      <AdminProductFilter
+        show={showFilters}
+        handleShow={() => setShowFilters((prev) => !prev)}
+        setFilter={setFilters}
+        products={items as Product[]}
+      />
       <h3 className="text-center mb-3">Dashboard de produtos </h3>
       <div
         className="d-flex pt-2 pb-2 justify-content-end gap-2"
         style={{ width: "90%", margin: "auto" }}
       >
-        <Button variant="primary">
+        <Button
+          variant="primary"
+          onClick={() => setShowFilters((prev) => !prev)}
+        >
           Filtrar Produtos <FaFilter style={{ color: "#fafafa" }} />
         </Button>
         <Button
@@ -71,9 +89,26 @@ const ProductsDashboard = () => {
           </thead>
           <tbody>
             {Array.isArray(items) &&
-              items.map((product) => (
-                <ProductInfos key={product._id} product={product as Product} />
-              ))}
+              items
+                .filter(
+                  (products: any) =>
+                    products._id.toLowerCase().includes(filters.id) &&
+                    products.name
+                      .toLowerCase()
+                      .includes(filters.name.toLowerCase()) &&
+                    products.category
+                      .toLowerCase()
+                      .includes(filters.category.toLowerCase()) &&
+                    products.description
+                      .toLowerCase()
+                      .includes(filters.description.toLowerCase())
+                )
+                .map((product) => (
+                  <ProductInfos
+                    key={product._id}
+                    product={product as Product}
+                  />
+                ))}
           </tbody>
         </Table>
       ) : (
