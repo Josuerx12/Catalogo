@@ -9,11 +9,20 @@ import { useState } from "react";
 import AdminCreateUserModal from "../../../components/dashboardAdmin/user/adminCreateUserModal";
 import { Pagination } from "react-bootstrap";
 import { usePagination } from "../../../hooks/usePagination/usePagination";
+import AdminUserFilter from "../../../components/dashboardAdmin/filters/adminUserFilter";
 
 const UsersDashboard = () => {
   const { users, loading, userErrors } = Admin();
-  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+  const [showCreateUserModal, setShowCreateUserModal] = useState(true);
   const [page, setPage] = useState(1);
+  const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    id: "",
+    name: "",
+    email: "",
+  });
+
+  console.log(filters);
 
   const { actualPage, total, totalPages, items } = usePagination({
     items: users,
@@ -34,6 +43,11 @@ const UsersDashboard = () => {
   }
   return (
     <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
+      <AdminUserFilter
+        show={showFilter}
+        handleShow={() => setShowFilter((prev) => !prev)}
+        setFilter={setFilters}
+      />
       <AdminCreateUserModal
         show={showCreateUserModal}
         handleShow={() => setShowCreateUserModal((prev) => !prev)}
@@ -43,7 +57,10 @@ const UsersDashboard = () => {
         className="d-flex pt-2 pb-2 justify-content-end gap-2"
         style={{ width: "90%", margin: "auto" }}
       >
-        <Button variant="primary">
+        <Button
+          variant="primary"
+          onClick={() => setShowFilter((prev) => !prev)}
+        >
           Filtrar Usuários <FaFilter style={{ color: "#fafafa" }} />
         </Button>
         <Button
