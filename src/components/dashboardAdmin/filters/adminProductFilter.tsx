@@ -89,7 +89,7 @@ const AdminProductFilter = ({
               placeholder="Selecione uma categoria."
               value={formData.category}
             >
-              <option defaultChecked>
+              <option defaultChecked value="">
                 Selecione uma categoria para filtrar
               </option>
               {Array.from(uniqueCategories).map((categories, index) => (
