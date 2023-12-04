@@ -14,14 +14,12 @@ const User = () => {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [loadingPhoto, setLoadingPhoto] = useState(true);
 
-  console.log(loadingPhoto);
-
   const handleShowEditModal = () => setShowEditModal((prev) => !prev);
   const handlePhotoLoading = () => setLoadingPhoto(false);
   const handleChangePasswordModal = () =>
     setShowChangePasswordModal((prev) => !prev);
   return (
-    <Container className="bg-light rounded p-2">
+    <Container className="bg-light rounded p-2 w-100 m-2">
       <EditUserModal handleShow={handleShowEditModal} show={showEditModal} />
       <ChangePasswordModal
         show={showChangePasswordModal}
@@ -29,13 +27,13 @@ const User = () => {
       />
       <h3 className="text-center mt-4 mb-4 text-dark">Perfil do usuário</h3>
       <Col>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center ">
           {loadingPhoto && (
             <img
               className="rounded shadow bg-body"
               style={{
-                width: "14rem ",
-                height: "10rem",
+                width: "14rem",
+                aspectRatio: "1",
               }}
               src="/carregando-1.gif"
             />

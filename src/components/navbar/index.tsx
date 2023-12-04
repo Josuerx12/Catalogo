@@ -6,6 +6,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { Auth } from "../../context/authContext";
+import { FaUser } from "react-icons/fa";
+import { TbPackages } from "react-icons/tb";
 const Navmenu = () => {
   const navigate = useNavigate();
   const { logout, user } = Auth();
@@ -59,15 +61,17 @@ const Navmenu = () => {
                       onClick={(e) =>
                         handleNavigateNav(e, "/dashboard/usuarios")
                       }
+                      className="d-flex align-items-center gap-2"
                     >
-                      Usuários
+                      Usuários <FaUser />
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       onClick={(e) =>
                         handleNavigateNav(e, "/dashboard/produtos")
                       }
+                      className="d-flex align-items-center gap-2"
                     >
-                      Produtos
+                      Produtos <TbPackages />
                     </NavDropdown.Item>
                   </NavDropdown>
                 )}

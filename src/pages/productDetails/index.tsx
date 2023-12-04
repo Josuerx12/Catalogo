@@ -21,7 +21,7 @@ const ProductDetails = () => {
     );
   }, [id, products]);
   return (
-    <div>
+    <div className="w-75 mx-auto">
       <h3 className="m-4 text-center">Detalhes do Produto</h3>
 
       <div
@@ -56,8 +56,7 @@ const ProductDetails = () => {
             <CarouselProductImages image={produto?.photos} />
           ) : (
             <img
-              style={{ width: "15rem", height: "15rem" }}
-              className="rounded"
+              className="rounded carrouselResponsive"
               src="/carregando-1.gif"
               alt="Carregando foto"
             />

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SiGoogletagmanager } from "react-icons/si";
 import AdminEditProductModal from "../editProductModal";
 import AdminDeleteProductModal from "../deleteProductModal";
+import { Link } from "react-router-dom";
 
 const ProductInfos = ({ product }: { product: Product }) => {
   const createdAt = new Date(product.createdAt).toLocaleString("pt-BR");
@@ -29,7 +30,15 @@ const ProductInfos = ({ product }: { product: Product }) => {
         product={product}
       />
       <tr>
-        <td className="text-center">{product._id}</td>
+        <td className="text-center">
+          <Link
+            target="_blank"
+            title="Clique para ir até esse produto"
+            to={`/produto/${product._id}`}
+          >
+            {product._id}
+          </Link>
+        </td>
         <td className="text-center">{product.name}</td>
         <td className="text-center">{product.category}</td>
         <td className="text-center">
