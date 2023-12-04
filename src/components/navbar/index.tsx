@@ -20,7 +20,7 @@ const Navmenu = () => {
       <Navbar key="xxl" expand="xxl" className="bg-body-tertiary mb-3">
         <Container fluid>
           <Navbar.Brand onClick={(e) => handleNavigateNav(e, "/")}>
-            Catálogo J.C.
+            Catálogo J.C
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-xxl`} />
           <Navbar.Offcanvas

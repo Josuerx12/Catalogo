@@ -43,7 +43,7 @@ const AdminEditUserModal = ({ handleShow, show, user }: props) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleShow} backdrop="static">
+      <Modal show={show} onHide={handleShow} backdrop="static" size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Editar usuário - ID: {user?._id}</Modal.Title>
         </Modal.Header>
@@ -52,20 +52,21 @@ const AdminEditUserModal = ({ handleShow, show, user }: props) => {
             <div style={{ width: "100%" }} className="d-flex mb-4">
               {loadingUserPhoto && (
                 <img
-                  className="rounded-circle"
+                  className="rounded"
                   style={{
-                    width: "15rem ",
-                    height: "15rem",
+                    width: "20rem",
+                    aspectRatio: "1",
+                    margin: "auto",
                   }}
                   src="/carregando-1.gif"
                 />
               )}
               <img
-                className="rounded-circle"
+                className="rounded"
                 style={
                   loadingUserPhoto
-                    ? { display: "none", margin: "auto" }
-                    : { width: "15rem", height: "15rem", margin: "auto" }
+                    ? { display: "none" }
+                    : { width: "20rem", aspectRatio: "1", margin: "auto" }
                 }
                 onLoad={handleLoadingPhotoStatus}
                 src={

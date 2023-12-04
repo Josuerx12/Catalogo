@@ -6,10 +6,17 @@ import { LuPackagePlus } from "react-icons/lu";
 import { FaFilter } from "react-icons/fa";
 import { useState } from "react";
 import AdminCreateProductModal from "../../../components/dashboardAdmin/products/adminCreateProductModal";
+import Pagination from "react-bootstrap/Pagination";
+import { usePagination } from "../../../hooks/usePagination/usePagination";
 
 const ProductsDashboard = () => {
   const { products } = ProductCommands();
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+
+  const { actualPage, total, totalPages, items, nextPage, prevPage } =
+    usePagination({ items: products, perPage: 5, page: 2 });
+
+  console.log(actualPage, total, totalPages, items);
   return (
     <div className="productsDashboard">
       <AdminCreateProductModal
@@ -37,14 +44,14 @@ const ProductsDashboard = () => {
         <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
           <thead>
             <tr>
-              <th className="text-center text-uppercase">id</th>
-              <th className="text-center text-uppercase">nome do produto</th>
-              <th className="text-center text-uppercase">categoria</th>
-              <th className="text-center text-uppercase">estoque</th>
-              <th className="text-center text-uppercase">valor</th>
-              <th className="text-center text-uppercase">adicionado dia</th>
-              <th className="text-center text-uppercase">atualizado dia</th>
-              <th className="text-center text-uppercase">Ações</th>
+              <th className="text-center text-capitalize">id</th>
+              <th className="text-center text-capitalize">nome do produto</th>
+              <th className="text-center text-capitalize">categoria</th>
+              <th className="text-center text-capitalize">estoque</th>
+              <th className="text-center text-capitalize">valor</th>
+              <th className="text-center text-capitalize">adicionado dia</th>
+              <th className="text-center text-capitalize">atualizado dia</th>
+              <th className="text-center text-capitalize">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -65,12 +72,14 @@ const ProductsDashboard = () => {
               style={{ cursor: "pointer" }}
               onClick={() => setShowAddProductModal((prev) => !prev)}
             >
-              {" "}
               Clique aqui
             </span>
           </p>
         </div>
       )}
+      <Pagination>
+        <Pagination.Item></Pagination.Item>
+      </Pagination>
     </div>
   );
 };

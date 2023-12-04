@@ -5,9 +5,9 @@ const Shop = () => {
   const { products } = ProductCommands();
   return (
     <div>
-      <h3 className="text-center mb-4 mt-3">Catálogo J.C</h3>
+      <h1 className="text-center mb-4 mt-3">Catálogo J.C</h1>
       <section
-        className="d-flex mx-auto gap-3 justify-content-center"
+        className="d-flex mx-auto gap-4 justify-content-center"
         style={{ flexFlow: "row wrap", width: "90%" }}
       >
         {Array.isArray(products) &&

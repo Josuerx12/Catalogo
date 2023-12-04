@@ -46,13 +46,13 @@ const UsersDashboard = () => {
         <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
           <thead>
             <tr>
-              <th className="text-center text-uppercase">ID</th>
-              <th className="text-center text-uppercase">Nome Completo</th>
-              <th className="text-center text-uppercase">E-mail</th>
-              <th className="text-center text-uppercase">Admin</th>
-              <th className="text-center text-uppercase">Entrou dia</th>
-              <th className="text-center text-uppercase">Atualizou dia</th>
-              <th className="text-center text-uppercase">Ações</th>
+              <th className="text-center text-capitalize">ID</th>
+              <th className="text-center text-capitalize">Nome Completo</th>
+              <th className="text-center text-capitalize">E-mail</th>
+              <th className="text-center text-capitalize">Admin</th>
+              <th className="text-center text-capitalize">Entrou dia</th>
+              <th className="text-center text-capitalize">Atualizou dia</th>
+              <th className="text-center text-capitalize">Ações</th>
             </tr>
           </thead>
           <tbody>

@@ -8,7 +8,7 @@ const CarouselProductImages = ({
 }) => {
   return (
     <Carousel
-      slide={false}
+      slide={true}
       touch
       variant="dark"
       style={{ width: "23rem" }}

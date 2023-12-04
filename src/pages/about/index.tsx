@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="container mt-5">
-      <h1 className="ms-3 text-md-center text-sm-center text-lg-start">
+    <div className="container mt-2">
+      <h1 className="text-md-center text-sm-center text-lg-center">
         Sobre este Projeto
       </h1>
       <div className="border p-3 rounded">
