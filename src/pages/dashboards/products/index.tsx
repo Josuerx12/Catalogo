@@ -8,22 +8,37 @@ import { useState } from "react";
 import AdminCreateProductModal from "../../../components/dashboardAdmin/products/adminCreateProductModal";
 import Pagination from "react-bootstrap/Pagination";
 import { usePagination } from "../../../hooks/usePagination/usePagination";
+import { Product } from "../../../interfaces/product/productInterface";
 
 const ProductsDashboard = () => {
   const { products } = ProductCommands();
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const { actualPage, total, totalPages, items, nextPage, prevPage } =
-    usePagination({ items: products, perPage: 5, page: 2 });
+  const { actualPage, total, totalPages, items } = usePagination({
+    items: products,
+    perPage: 5,
+    page: page,
+  });
 
-  console.log(actualPage, total, totalPages, items);
+  function nextPage() {
+    if (totalPages > page) {
+      setPage((prev) => prev + 1);
+    }
+  }
+
+  function prevPage() {
+    if (page - 1 > 0) {
+      setPage((prev) => prev - 1);
+    }
+  }
   return (
-    <div className="productsDashboard">
+    <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
       <AdminCreateProductModal
         show={showAddProductModal}
         handleShow={() => setShowAddProductModal((prev) => !prev)}
       />
-      <h3 className="text-center mt-4 mb-3">Dashboard de produtos </h3>
+      <h3 className="text-center mb-3">Dashboard de produtos </h3>
       <div
         className="d-flex pt-2 pb-2 justify-content-end gap-2"
         style={{ width: "90%", margin: "auto" }}
@@ -55,9 +70,10 @@ const ProductsDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <ProductInfos key={product._id} product={product} />
-            ))}
+            {Array.isArray(items) &&
+              items.map((product) => (
+                <ProductInfos key={product._id} product={product as Product} />
+              ))}
           </tbody>
         </Table>
       ) : (
@@ -77,9 +93,26 @@ const ProductsDashboard = () => {
           </p>
         </div>
       )}
-      <Pagination>
-        <Pagination.Item></Pagination.Item>
-      </Pagination>
+      <div className="d-flex flex-column justify-content-center align-items-center">
+        <Pagination>
+          <Pagination.Prev onClick={prevPage} />
+          {Array.from(Array(totalPages)).map((_, i) => (
+            <Pagination.Item
+              key={i + 1}
+              active={page === i + 1 ? true : false}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={nextPage} />
+        </Pagination>
+        <p>
+          Mostrando {actualPage + 1} de{" "}
+          {actualPage + 5 < total ? actualPage + 5 : total} total de {total}{" "}
+          resultados.
+        </p>
+      </div>
     </div>
   );
 };
