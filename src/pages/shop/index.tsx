@@ -26,7 +26,10 @@ const Shop = () => {
     }
   }
   return (
-    <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
+    <div
+      className="d-flex flex-column gap-3 justify-content-center align-items-center"
+      style={{ flex: "1" }}
+    >
       <h1 className="text-center mb-4">Catálogo J.C</h1>
       <section
         className="d-flex mx-auto gap-4 justify-content-center"

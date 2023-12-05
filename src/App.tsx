@@ -13,6 +13,7 @@ import UsersDashboard from "./pages/dashboards/users";
 import ProductsDashboard from "./pages/dashboards/products";
 import ProductDetails from "./pages/productDetails";
 import Cart from "./pages/cart";
+import Footer from "./components/footer";
 
 function App() {
   const { user } = Auth();
@@ -57,6 +58,7 @@ function App() {
           element={user ? <Navigate to="/produtos" /> : <Login />}
         />
       </Routes>
+      <Footer />
     </div>
   );
 }

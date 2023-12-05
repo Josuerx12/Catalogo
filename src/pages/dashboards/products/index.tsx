@@ -42,7 +42,10 @@ const ProductsDashboard = () => {
     }
   }
   return (
-    <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
+    <div
+      className="d-flex flex-column gap-3 justify-content-center align-items-center"
+      style={{ flex: "1" }}
+    >
       <AdminCreateProductModal
         show={showAddProductModal}
         handleShow={() => setShowAddProductModal((prev) => !prev)}

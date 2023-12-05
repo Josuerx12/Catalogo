@@ -4,16 +4,19 @@ import { Auth } from "../../context/authContext";
 const Home = () => {
   const { user } = Auth();
   return (
-    <div className="d-flex flex-column mt-5 w-75 mx-auto p-5">
+    <div
+      className="d-flex flex-column mx-auto presentation"
+      style={{ flex: "1" }}
+    >
       <h1 className="text-center">Bem-vindo ao nosso catálogo de produtos</h1>
       {!user ? (
-        <p className="text-lg-center text-sm-start text-wrap pt-3">
+        <p className="text-lg-center text-sm-start text-wrap pt-3 fw-bolder">
           Esta é a melhor loja para encontrar produtos incríveis. Faça o login
           ou registre-se para começar a explorar nosso catálogo e fazer compras
           incríveis.
         </p>
       ) : (
-        <p className="text-lg-center text-sm-start text-wrap pt-3">
+        <p className="text-lg-center text-sm-start text-wrap pt-3 fw-bolder">
           Bem-vindo de volta! Você está prestes a mergulhar em uma experiência
           única de compras. Navegue pelo nosso catálogo repleto de produtos
           incríveis, descubra as últimas novidades e faça compras que vão

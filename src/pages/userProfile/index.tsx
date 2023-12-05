@@ -18,7 +18,7 @@ const User = () => {
   return (
     <div
       className="d-flex flex-column justify-content-center align-items-center bg-light rounded mx-auto p-2 m-2"
-      style={{ width: "90%" }}
+      style={{ width: "90%", flex: "1" }}
     >
       <EditUserModal handleShow={handleShowEditModal} show={showEditModal} />
       <ChangePasswordModal

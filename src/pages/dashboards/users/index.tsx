@@ -40,7 +40,10 @@ const UsersDashboard = () => {
     }
   }
   return (
-    <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
+    <div
+      className="d-flex flex-column gap-3 justify-content-center align-items-center"
+      style={{ flex: "1" }}
+    >
       <AdminUserFilter
         show={showFilter}
         handleShow={() => setShowFilter((prev) => !prev)}

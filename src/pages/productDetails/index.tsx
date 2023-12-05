@@ -21,12 +21,12 @@ const ProductDetails = () => {
     );
   }, [id, products]);
   return (
-    <div className="w-75 mx-auto">
+    <div className="mx-auto w-100">
       <h3 className="m-4 text-center">Detalhes do Produto</h3>
 
       <div
         className="d-flex flex-column gap-2 mx-auto"
-        style={{ width: "fit-content" }}
+        style={{ width: "90%" }}
       >
         <div className="d-flex gap-3 w-100 justify-content-end">
           <Link
@@ -51,7 +51,7 @@ const ProductDetails = () => {
             false
           )}
         </div>
-        <div className="d-flex flex-row flex-wrap align-items-center justify-content-center border p-3 mx-auto rounded">
+        <div className="d-flex flex-row w-100 gap-3 flex-wrap align-items-center justify-content-center border p-3 mx-auto rounded">
           {produto ? (
             <CarouselProductImages image={produto?.photos} />
           ) : (
@@ -62,11 +62,17 @@ const ProductDetails = () => {
             />
           )}
           {produto ? (
-            <Form className="d-flex flex-column p-2 m-3 rounded border">
-              <h4 className="text-center p-3 text-secondary">
+            <Form
+              className="d-flex flex-column p-2 align-items-center rounded border"
+              style={{ flex: "2", flexBasis: "600px" }}
+            >
+              <h2 className="text-center p-3 text-secondary">
                 {produto?.name}
-              </h4>
-              <div className="d-flex flex-row justify-content-center flex-wrap gap-3">
+              </h2>
+              <div
+                className="d-flex mx-auto flex-row justify-content-between flex-wrap gap-5"
+                style={{ width: "90%" }}
+              >
                 <div>
                   <h5 className="ms-2" style={{ fontSize: "1.5rem" }}>
                     Categoria:{" "}
@@ -99,9 +105,10 @@ const ProductDetails = () => {
                     </span>
                   </h3>
                 </div>
-                <div>
+                <div style={{ flex: "1", flexBasis: "200px" }}>
                   <Form.Control
                     as="textarea"
+                    className="w-100 "
                     disabled
                     defaultValue={produto?.description}
                   ></Form.Control>
@@ -110,10 +117,11 @@ const ProductDetails = () => {
               <button
                 type="button"
                 disabled={user ? false : true}
+                style={{ width: "90%" }}
                 className={
                   user
-                    ? "btn btn-primary m-3 btn-lg"
-                    : "btn btn-warning m-3 btn-lg"
+                    ? "btn btn-primary m-3 btn-lg text-capitalize"
+                    : "btn btn-warning m-3 btn-lg text-capitalize"
                 }
               >
                 {user
