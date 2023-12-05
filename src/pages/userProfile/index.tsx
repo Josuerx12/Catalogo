@@ -17,7 +17,7 @@ const User = () => {
     setShowChangePasswordModal((prev) => !prev);
   return (
     <div
-      className="d-flex flex-column justify-content-center align-items-center bg-light rounded mx-auto p-2 m-2"
+      className="d-flex flex-column mb-3 align-items-center bg-light rounded mx-auto p-2 m-2"
       style={{ width: "90%", flex: "1" }}
     >
       <EditUserModal handleShow={handleShowEditModal} show={showEditModal} />
@@ -51,7 +51,7 @@ const User = () => {
         onLoad={handlePhotoLoading}
       />
       <div
-        className="w-100 d-flex flex-column align-items-center border p-4 mb-4 mt-4 bg-white rounded-3"
+        className="d-flex flex-column align-items-center border p-4 m-4 bg-white rounded-3"
         style={{ width: "fit-content" }}
       >
         <div>
@@ -64,7 +64,7 @@ const User = () => {
           <p className="text-dark text-start" style={{ fontSize: "1.2rem" }}>
             <b>E-mail:</b> {user?.email}{" "}
           </p>
-          <div className="d-flex gap-3 flex-wrap justify-content-start">
+          <div className="d-flex gap-1 flex-column justify-content-center">
             <Button
               variant="success"
               className="d-flex align-items-center justify-content-center gap-1"

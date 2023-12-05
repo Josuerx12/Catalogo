@@ -24,7 +24,7 @@ const UsersDashboard = () => {
 
   const { actualPage, total, totalPages, items } = usePagination({
     items: users,
-    perPage: 5,
+    perPage: 10,
     page: page,
   });
 
@@ -39,83 +39,92 @@ const UsersDashboard = () => {
       setPage((prev) => prev - 1);
     }
   }
+  const filteredUsers: User[] | undefined =
+    items?.filter((item): item is User => {
+      if (item && "_id" in item && "name" in item && "email" in item) {
+        return (
+          item._id.toLowerCase().includes(filters.id.toLowerCase()) &&
+          item.name.toLowerCase().includes(filters.name.toLowerCase()) &&
+          item.email.toLowerCase().includes(filters.email.toLowerCase())
+        );
+      }
+      return false;
+    }) ?? undefined;
+
   return (
-    <div
-      className="d-flex flex-column gap-3 justify-content-center align-items-center"
+    <section
+      className="d-flex flex-column justify-content-between"
       style={{ flex: "1" }}
     >
-      <AdminUserFilter
-        show={showFilter}
-        handleShow={() => setShowFilter((prev) => !prev)}
-        setFilter={setFilters}
-      />
-      <AdminCreateUserModal
-        show={showCreateUserModal}
-        handleShow={() => setShowCreateUserModal((prev) => !prev)}
-      />
-      <h3 className="text-center mb-3">Dashboard de usuários </h3>
-      <div
-        className="d-flex pt-2 pb-2 justify-content-end gap-2"
-        style={{ width: "90%", margin: "auto" }}
-      >
-        <Button
-          variant="primary"
-          onClick={() => setShowFilter((prev) => !prev)}
-        >
-          Filtrar Usuários <FaFilter style={{ color: "#fafafa" }} />
-        </Button>
-        <Button
-          onClick={() => setShowCreateUserModal((prev) => !prev)}
-          variant="success"
-          style={{ textAlign: "center" }}
-        >
-          Criar Novo Usuário <FaUserPlus style={{ fontSize: "1.3rem" }} />
-        </Button>
-      </div>
-      {loading && (
+      <div className="d-flex flex-column  gap-3">
+        <AdminUserFilter
+          show={showFilter}
+          handleShow={() => setShowFilter((prev) => !prev)}
+          setFilter={setFilters}
+        />
+        <AdminCreateUserModal
+          show={showCreateUserModal}
+          handleShow={() => setShowCreateUserModal((prev) => !prev)}
+        />
+        <h3 className="text-center ">Dashboard de usuários </h3>
         <div
-          style={{ width: "100%", minHeight: "90dvh" }}
-          className="d-flex align-items-center justify-content-center"
+          className="d-flex justify-content-end gap-2"
+          style={{ width: "90%", margin: "auto" }}
         >
-          <span>Carregando...</span>
-          <Spinner animation="border" role="status"></Spinner>
+          <Button
+            variant="primary"
+            onClick={() => setShowFilter((prev) => !prev)}
+          >
+            Filtrar Usuários <FaFilter style={{ color: "#fafafa" }} />
+          </Button>
+          <Button
+            onClick={() => setShowCreateUserModal((prev) => !prev)}
+            variant="success"
+            style={{ textAlign: "center" }}
+          >
+            Criar Novo Usuário <FaUserPlus style={{ fontSize: "1.3rem" }} />
+          </Button>
         </div>
-      )}
-      {!loading && !userErrors && (
-        <Table striped bordered hover style={{ width: "90%", margin: "auto" }}>
-          <thead>
-            <tr>
-              <th className="text-center text-capitalize">ID</th>
-              <th className="text-center text-capitalize">Nome Completo</th>
-              <th className="text-center text-capitalize">E-mail</th>
-              <th className="text-center text-capitalize">Admin</th>
-              <th className="text-center text-capitalize">Entrou dia</th>
-              <th className="text-center text-capitalize">Atualizou dia</th>
-              <th className="text-center text-capitalize">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!loading &&
-              !userErrors &&
-              Array.isArray(items) &&
-              items
-                .filter(
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (user: any) =>
-                    user._id.toLowerCase().includes(filters.id.toLowerCase()) &&
-                    user.name
-                      .toLowerCase()
-                      .includes(filters.name.toLowerCase()) &&
-                    user.email
-                      .toLowerCase()
-                      .includes(filters.email.toLowerCase())
-                )
-                .map((user) => (
+        {loading && (
+          <div
+            style={{ width: "100%", minHeight: "90dvh" }}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <span>Carregando...</span>
+            <Spinner animation="border" role="status"></Spinner>
+          </div>
+        )}
+        {!loading && !userErrors && (
+          <Table
+            striped
+            bordered
+            hover
+            style={{ width: "90%", margin: "auto" }}
+          >
+            <thead>
+              <tr>
+                <th className="text-center text-capitalize">ID</th>
+                <th className="text-center text-capitalize">Nome Completo</th>
+                <th className="text-center text-capitalize">E-mail</th>
+                <th className="text-center text-capitalize">Admin</th>
+                <th className="text-center text-capitalize">Entrou dia</th>
+                <th className="text-center text-capitalize">Atualizou dia</th>
+                <th className="text-center text-capitalize">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!loading &&
+                !userErrors &&
+                filteredUsers?.map((user) => (
                   <UsersInfo user={user as User} key={user._id} />
                 ))}
-          </tbody>
-        </Table>
-      )}
+            </tbody>
+          </Table>
+        )}
+        {filteredUsers?.length === 0 && (
+          <p className="text-center">Nenhum usuário encontrado...</p>
+        )}
+      </div>
       <div className="d-flex flex-column justify-content-center align-items-center">
         <Pagination>
           <Pagination.Prev onClick={prevPage} />
@@ -132,11 +141,11 @@ const UsersDashboard = () => {
         </Pagination>
         <p>
           Mostrando {actualPage + 1} de{" "}
-          {actualPage + 5 < total ? actualPage + 5 : total} total de {total}{" "}
+          {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
           resultados.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

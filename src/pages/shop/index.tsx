@@ -27,7 +27,7 @@ const Shop = () => {
   }
   return (
     <div
-      className="d-flex flex-column gap-3 justify-content-center align-items-center"
+      className="d-flex flex-column gap-3 mb-3 align-items-center"
       style={{ flex: "1" }}
     >
       <h1 className="text-center mb-4">Catálogo J.C</h1>
@@ -41,26 +41,28 @@ const Shop = () => {
           ))}
         {!items && <p>Nenhum produto cadastrado.</p>}
       </section>
-      <div className="d-flex flex-column justify-content-center align-items-center">
-        <Pagination>
-          <Pagination.Prev onClick={prevPage} />
-          {Array.from(Array(totalPages)).map((_, i) => (
-            <Pagination.Item
-              key={i + 1}
-              active={page === i + 1 ? true : false}
-              onClick={() => setPage(i + 1)}
-            >
-              {i + 1}
-            </Pagination.Item>
-          ))}
-          <Pagination.Next onClick={nextPage} />
-        </Pagination>
-        <p>
-          Mostrando {actualPage + 1} de{" "}
-          {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
-          resultados.
-        </p>
-      </div>
+      {Array.isArray(items) && items?.length > 0 && (
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <Pagination>
+            <Pagination.Prev onClick={prevPage} />
+            {Array.from(Array(totalPages)).map((_, i) => (
+              <Pagination.Item
+                key={i + 1}
+                active={page === i + 1 ? true : false}
+                onClick={() => setPage(i + 1)}
+              >
+                {i + 1}
+              </Pagination.Item>
+            ))}
+            <Pagination.Next onClick={nextPage} />
+          </Pagination>
+          <p>
+            Mostrando {actualPage + 1} de{" "}
+            {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
+            resultados.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

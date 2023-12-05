@@ -21,7 +21,7 @@ const ProductDetails = () => {
     );
   }, [id, products]);
   return (
-    <div className="mx-auto w-100">
+    <div className="mx-auto w-100 mb-3">
       <h3 className="m-4 text-center">Detalhes do Produto</h3>
 
       <div

@@ -79,7 +79,7 @@ const Login = () => {
           </Form.Text>
         </Form.Group>
         {loading ? (
-          <Button variant="primary" disabled type="submit">
+          <Button variant="secondary" disabled type="submit">
             Entrando
           </Button>
         ) : (

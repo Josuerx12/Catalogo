@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="container mt-2" style={{ flex: "1" }}>
+    <div className="container mt-2 mb-3" style={{ flex: "1" }}>
       <h1 className="text-md-center text-sm-center text-lg-center">
         Sobre este Projeto
       </h1>

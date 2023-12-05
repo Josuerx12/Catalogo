@@ -100,7 +100,7 @@ const Navmenu = () => {
                   </Link>
                 )}
                 {!user && (
-                  <>
+                  <div className="navbarResponsive">
                     <Nav.Link onClick={(e) => handleNavigateNav(e, "/login")}>
                       Entrar
                     </Nav.Link>
@@ -109,7 +109,7 @@ const Navmenu = () => {
                     >
                       Registrar-se
                     </Nav.Link>
-                  </>
+                  </div>
                 )}
                 {user && (
                   <NavDropdown
