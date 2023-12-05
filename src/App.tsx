@@ -33,10 +33,7 @@ function App() {
             user?.admin ? <UsersDashboard /> : <Navigate to="/produtos" />
           }
         />
-        <Route
-          path="/carrinho"
-          element={user ? <Cart /> : <Navigate to="/login" />}
-        />
+        <Route path="/carrinho" element={<Cart />} />
         <Route
           path="/dashboard/produtos"
           element={

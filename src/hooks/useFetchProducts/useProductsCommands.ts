@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import { useEffect, useReducer } from "react";
 import { initialState, reducer } from "./reducer";
-import { api } from "../../utils/apiConnection";
+import { api } from "../../config/apiConnection";
 import * as actionTypes from "./actionTypes";
 export const useProductsCommands = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

@@ -3,7 +3,7 @@ import { useReducer, useEffect } from "react";
 import { initialState, reducer } from "./reducer";
 import Cookies from "js-cookie";
 import * as actionTypes from "./actionTypes";
-import { api } from "../../utils/apiConnection";
+import { api } from "../../config/apiConnection";
 import { Auth } from "../../context/authContext";
 export type AdminCreateUserCredentials = {
   name: string;

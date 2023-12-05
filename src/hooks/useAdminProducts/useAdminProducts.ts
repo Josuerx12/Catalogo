@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { api } from "../../utils/apiConnection";
+import { api } from "../../config/apiConnection";
 import Cookies from "js-cookie";
 import * as actionTypes from "./actionTypes";
 import { useReducer } from "react";

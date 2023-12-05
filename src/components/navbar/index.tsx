@@ -76,31 +76,38 @@ const Navmenu = () => {
                   </NavDropdown>
                 )}
               </Nav>
-              <div className="d-flex gap-4 align-items-center ">
-                {user && (
-                  <Link
-                    className="bg-dark p-2 rounded gap-2 text-light"
-                    to="/carrinho"
+              <div className="gap-2 navbarResponsive ">
+                <Link
+                  className="bg-dark p-2 rounded gap-2 text-light"
+                  to="/carrinho"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textDecoration: "none",
+                    color: "#000",
+                    fontSize: "1rem",
+                  }}
+                >
+                  <FaShoppingCart style={{ fontSize: "1.3rem" }} />
+                  <span
+                    className="bg-danger d-flex align-items-center justify-content-center text-white rounded-circle"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      textDecoration: "none",
-                      color: "#000",
-                      fontSize: "1.2rem",
+                      zIndex: "999",
+                      width: "18px",
+                      height: "18px",
+                      fontSize: "1rem",
+                      position: "relative",
+                      top: "-7px ",
+                      right: "12px",
                     }}
                   >
-                    <FaShoppingCart />
-                    <span
-                      className="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center"
-                      style={{ width: "25px", height: "25px" }}
-                    >
-                      0
-                    </span>
-                  </Link>
-                )}
+                    0
+                  </span>
+                </Link>
+
                 {!user && (
-                  <div className="navbarResponsive">
+                  <>
                     <Nav.Link onClick={(e) => handleNavigateNav(e, "/login")}>
                       Entrar
                     </Nav.Link>
@@ -109,7 +116,7 @@ const Navmenu = () => {
                     >
                       Registrar-se
                     </Nav.Link>
-                  </div>
+                  </>
                 )}
                 {user && (
                   <NavDropdown

@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import { useEffect, useReducer } from "react";
 import * as actionTypes from "./actionTypes";
-import { api } from "../../utils/apiConnection";
+import { api } from "../../config/apiConnection";
 import {
   loginCredentials,
   registerCredentials,
