@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Auth } from "../../context/authContext";
-import { useCartStore } from "../../store/cartStore";
-import { Product } from "../../interfaces/product/productInterface";
+import { ProductCart, useCartStore } from "../../store/cartStore";
+import ItemCart from "../../components/itemCart";
 
 const Cart = () => {
   const { cart } = useCartStore();
@@ -10,26 +10,32 @@ const Cart = () => {
   console.log(cart);
 
   return (
-    <section style={{ flex: "1" }}>
-      <h2>Seu Carrinho</h2>
+    <section
+      className="p-2 d-flex flex-column align-items-center"
+      style={{ flex: "1" }}
+    >
+      <h2>Carrinho de compras</h2>
       {!user ? (
         <p>
           Para adicionar produtos ao carrinho autenque-se{" "}
           <Link to="/login">Clicando aqui</Link>
         </p>
       ) : (
-        <div>
+        <div className="d-flex flex-column gap-3">
           {cart.length <= 0 ? (
-            <p>Carrinho vazio!!!</p>
+            <p className="d-flex flex-column text-center border p-2 rounded">
+              <span className="fw-bold">Carrinho vazio!!</span>
+              <span>
+                <Link to="/produtos">Clique aqui</Link> e monte seu carrinho e
+                venha ser feliz!
+              </span>
+            </p>
           ) : (
-            <ul>
-              {cart.map((product: Product) => (
-                <li>{product._id}</li>
-              ))}
-            </ul>
+            cart.map((item: ProductCart) => <ItemCart product={item} />)
           )}
         </div>
       )}
+      <button>Comprar mais!!!</button>
     </section>
   );
 };

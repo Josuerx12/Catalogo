@@ -8,8 +8,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Auth } from "../../context/authContext";
 import { FaUser } from "react-icons/fa";
 import { TbPackages } from "react-icons/tb";
+import { useCartStore } from "../../store/cartStore";
 const Navmenu = () => {
   const navigate = useNavigate();
+  const { cart } = useCartStore();
   const { logout, user } = Auth();
   const handleNavigateNav = (e: React.FormEvent, path: string) => {
     e.preventDefault();
@@ -102,7 +104,7 @@ const Navmenu = () => {
                       right: "12px",
                     }}
                   >
-                    0
+                    {cart.length}
                   </span>
                 </Link>
 

@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import { Photo, Product } from "../interfaces/product/productInterface";
 
-type ProductCart = {
+export type ProductCart = {
   name: string;
   category: string;
   stock: number;
@@ -13,10 +13,17 @@ type ProductCart = {
   _id: string;
   updatedAt: string;
   createdAt: string;
-  quantity: number;
+  quantity: string;
 };
 
-export const useCartStore = create((set) => ({
+export interface CartStore {
+  cart: ProductCart[];
+  addCart: (product: Product, quantity: number) => void;
+  decrementCartItem: (productId: string) => void;
+  removeFromCart: (productId: string) => void;
+}
+
+export const useCartStore = create<CartStore>((set) => ({
   cart: [] as ProductCart[],
   addCart: (product: Product, quantity: number) => {
     set((state: any) => {
@@ -24,13 +31,11 @@ export const useCartStore = create((set) => ({
         (item: ProductCart) => item._id === product._id
       );
 
-      console.log(existingProduct);
-
       if (existingProduct) {
         const newCart = state.cart.map((item: ProductCart) => {
           if (item._id === product._id) {
-            const newQuantity = item.quantity + quantity;
-
+            const newQuantity = parseInt(item.quantity) + quantity;
+            console.log(newQuantity, product.stock);
             if (newQuantity <= product.stock) {
               return { ...item, quantity: newQuantity };
             } else {
@@ -51,6 +56,26 @@ export const useCartStore = create((set) => ({
           return state;
         }
       }
+    });
+  },
+  decrementCartItem: (productId: string) => {
+    set((state: any) => {
+      const updatedCart = state.cart.map((item: ProductCart) => {
+        if (item._id === productId) {
+          const newQuantity = parseInt(item.quantity) - 1;
+
+          if (newQuantity > 0) {
+            return { ...item, quantity: newQuantity.toString() };
+          } else {
+            return null;
+          }
+        }
+
+        return item;
+      });
+      const newCart = updatedCart.filter((item: any) => item !== null);
+
+      return { cart: newCart };
     });
   },
   removeFromCart: (productId: string) => {

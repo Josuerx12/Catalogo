@@ -8,7 +8,7 @@ import { Auth } from "../../context/authContext";
 import { useCartStore } from "../../store/cartStore";
 const Products = ({ product }: { product: Product }) => {
   const { _id, category, name, photos, unit, stock, value } = product;
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
   const { addCart } = useCartStore();
   const { user } = Auth();
   const [loadingImage, setLoadingImage] = useState(true);
@@ -51,7 +51,7 @@ const Products = ({ product }: { product: Product }) => {
           <b>Produtos disponíveis:</b>
           <select
             disabled={user ? false : true}
-            onChange={(e: any) => setQuantity(e.target.value)}
+            onChange={(e: any) => setQuantity(parseInt(e.target.value))}
             name="units"
           >
             {Array.from(Array(stock), (_, i) => (
