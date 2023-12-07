@@ -35,7 +35,7 @@ export const useCartStore = create<CartStore>((set) => ({
         const newCart = state.cart.map((item: ProductCart) => {
           if (item._id === product._id) {
             const newQuantity = parseInt(item.quantity) + quantity;
-            console.log(newQuantity, product.stock);
+
             if (newQuantity <= product.stock) {
               return { ...item, quantity: newQuantity };
             } else {

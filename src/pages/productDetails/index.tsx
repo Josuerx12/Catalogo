@@ -21,7 +21,10 @@ const ProductDetails = () => {
     );
   }, [id, products]);
   return (
-    <div className="mx-auto w-100 mb-3" style={{ flex: "1" }}>
+    <div
+      className="mx-auto w-100 mb-3"
+      style={{ flex: "1", maxWidth: "1200px" }}
+    >
       <h3 className="m-4 text-center">Detalhes do Produto</h3>
 
       <div
@@ -51,7 +54,7 @@ const ProductDetails = () => {
             false
           )}
         </div>
-        <div className="d-flex flex-row w-100 gap-3 flex-wrap align-items-center justify-content-around border p-3 mx-auto rounded">
+        <div className="d-flex flex-row w-100 gap-4 flex-wrap align-items-center justify-content-around border p-3 mx-auto rounded">
           {produto ? (
             <CarouselProductImages image={produto?.photos} />
           ) : (
@@ -64,7 +67,7 @@ const ProductDetails = () => {
           {produto ? (
             <Form
               className="d-flex flex-column p-2 align-items-center rounded border"
-              style={{ flex: "2", flexBasis: "600px", maxWidth: "800px" }}
+              style={{ flex: "2", flexBasis: "400px" }}
             >
               <h2 className="text-center p-3 text-secondary">
                 {produto?.name}

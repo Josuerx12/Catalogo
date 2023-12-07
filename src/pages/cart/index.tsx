@@ -43,7 +43,7 @@ const Cart = () => {
           {cart.length > 0 && (
             <div
               className="bg-light rounded ps-3 pt-2 pb-3 pe-3"
-              style={{ flex: "1", flexBasis: "300px" }}
+              style={{ flex: "1", flexBasis: "300px", height: "fit-content" }}
             >
               <h5 className="text-center">Detalhes</h5>
               <ul className="bg-secondary p-2 rounded text-white ">
