@@ -3,10 +3,9 @@ import { ProductCart, useCartStore } from "../../store/cartStore";
 const ItemCart = ({ product }: { product: ProductCart }) => {
   const { _id, name, value, quantity, photos } = product;
   const { removeFromCart, decrementCartItem, addCart } = useCartStore();
-  console.log(photos);
   return (
     <div
-      className="d-flex flex-row border justify-content-between pb-2 pt-2 ps-4 pe-4 align-items-center rounded bg-light"
+      className="d-flex flex-row gap-3 border justify-content-between pb-2 pt-2 ps-4 pe-4 align-items-center rounded bg-light"
       style={{ maxWidth: "450px", position: "relative" }}
     >
       <span

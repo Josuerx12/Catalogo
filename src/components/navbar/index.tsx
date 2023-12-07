@@ -4,10 +4,10 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useNavigate } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
 import { Auth } from "../../context/authContext";
 import { FaUser } from "react-icons/fa";
 import { TbPackages } from "react-icons/tb";
+import { LuShoppingCart } from "react-icons/lu";
 import { useCartStore } from "../../store/cartStore";
 const Navmenu = () => {
   const navigate = useNavigate();
@@ -78,34 +78,37 @@ const Navmenu = () => {
                   </NavDropdown>
                 )}
               </Nav>
-              <div className="gap-2 navbarResponsive ">
+              <div className="gap-2 navbarResponsive">
                 <Link
-                  className="bg-dark p-2 rounded gap-2 text-light"
+                  className="bg-dark pt-2 pb-2 pe-3 ps-3 rounded gap-2 text-light"
                   to="/carrinho"
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    position: "relative",
                     textDecoration: "none",
                     color: "#000",
-                    fontSize: "1rem",
                   }}
                 >
-                  <FaShoppingCart style={{ fontSize: "1.3rem" }} />
-                  <span
-                    className="bg-danger d-flex align-items-center justify-content-center text-white rounded-circle"
-                    style={{
-                      zIndex: "999",
-                      width: "18px",
-                      height: "18px",
-                      fontSize: "1rem",
-                      position: "relative",
-                      top: "-7px ",
-                      right: "12px",
-                    }}
-                  >
-                    {cart.length}
-                  </span>
+                  <span>Carrinho</span>
+                  <LuShoppingCart style={{ fontSize: "1rem" }} />
+                  {cart.length > 0 && (
+                    <span
+                      className="bg-danger d-flex align-items-center justify-content-center text-white rounded-circle"
+                      style={{
+                        zIndex: "999",
+                        width: "14px",
+                        height: "14px",
+                        fontSize: ".825rem",
+                        position: "absolute",
+                        top: 5,
+                        right: 5,
+                      }}
+                    >
+                      {cart.length}
+                    </span>
+                  )}
                 </Link>
 
                 {!user && (
