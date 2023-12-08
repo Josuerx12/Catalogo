@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InitialState } from "../../interfaces/admin/AdminUserInterface";
+
+import { InitialState } from "../../interfaces/admin/adminUserInterface";
 import { User } from "../../interfaces/user/userInterface";
 import * as actionTypes from "./actionTypes";
 

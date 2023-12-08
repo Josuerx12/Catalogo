@@ -27,7 +27,10 @@ const Cart = () => {
           } p-3 rounded w-100`}
           style={{ maxWidth: "900px" }}
         >
-          <div className="d-flex flex-column gap-3">
+          <div
+            className="d-flex flex-column ps-3 pe-3"
+            style={{ height: "66dvh", overflowY: "auto" }}
+          >
             {cart.length === 0 ? (
               <p className="d-flex flex-column text-center">
                 <span className="fw-bold">Carrinho vazio!!</span>
@@ -37,7 +40,12 @@ const Cart = () => {
                 </span>
               </p>
             ) : (
-              cart.map((item: ProductCart) => <ItemCart product={item} />)
+              <div className="d-flex flex-column gap-3">
+                <h4 className="text-center text-light">Produtos</h4>
+                {cart.map((item: ProductCart) => (
+                  <ItemCart product={item} />
+                ))}
+              </div>
             )}
           </div>
           {cart.length > 0 && (

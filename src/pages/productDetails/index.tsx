@@ -42,14 +42,14 @@ const ProductDetails = () => {
             Voltar para loja
           </Link>
           {user ? (
-            <button
-              type="button"
+            <Link
               className="btn btn-outline-success d-flex align-items-center gap-2"
               style={{ width: "fit-content" }}
+              to="/carrinho"
             >
               <TiShoppingCart />
               Veja seu carrinho
-            </button>
+            </Link>
           ) : (
             false
           )}

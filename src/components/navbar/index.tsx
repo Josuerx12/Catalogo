@@ -80,7 +80,7 @@ const Navmenu = () => {
               </Nav>
               <div className="gap-2 navbarResponsive">
                 <Link
-                  className="bg-dark pt-2 pb-2 pe-3 ps-3 rounded gap-2 text-light"
+                  className=" pt-2 pb-2 pe-3 ps-3 rounded gap-2 text-light"
                   to="/carrinho"
                   style={{
                     display: "flex",
@@ -88,22 +88,22 @@ const Navmenu = () => {
                     justifyContent: "center",
                     position: "relative",
                     textDecoration: "none",
-                    color: "#000",
                   }}
                 >
-                  <span>Carrinho</span>
-                  <LuShoppingCart style={{ fontSize: "1rem" }} />
+                  <LuShoppingCart
+                    style={{ fontSize: "1.3rem", color: "#000" }}
+                  />
                   {cart.length > 0 && (
                     <span
-                      className="bg-danger d-flex align-items-center justify-content-center text-white rounded-circle"
+                      className="bg-danger d-flex text-center align-items-center justify-content-center text-white rounded-circle"
                       style={{
                         zIndex: "999",
-                        width: "14px",
-                        height: "14px",
-                        fontSize: ".825rem",
+                        width: "20px",
+                        height: "20px",
+                        fontSize: "1rem",
                         position: "absolute",
-                        top: 5,
-                        right: 5,
+                        top: -2,
+                        right: 4,
                       }}
                     >
                       {cart.length}

@@ -1,5 +1,4 @@
 import { BsGithub } from "react-icons/bs";
-import { AiOutlineLinkedin } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -37,7 +36,7 @@ const About = () => {
           as ferramentas administrativas, entre em contato com o Josué Carvalho
           por{" "}
           <Link
-            style={{ fontSize: "1.3rem" }}
+            style={{ fontSize: "1rem" }}
             to="mailto:josueazevedo71@hotmail.com"
             target="_blank"
           >
@@ -45,7 +44,7 @@ const About = () => {
           </Link>
           ,{" "}
           <Link
-            style={{ fontSize: "1.3rem" }}
+            style={{ fontSize: "1rem" }}
             to="telto:22997979633"
             target="_blank"
           >
@@ -53,11 +52,11 @@ const About = () => {
           </Link>{" "}
           ou através do{" "}
           <Link
-            style={{ fontSize: "1.3rem" }}
+            style={{ fontSize: "1rem" }}
             to="https://www.linkedin.com/in/josueaze12/"
             target="_blank"
           >
-            LinkedIn <AiOutlineLinkedin />
+            LinkedIn
           </Link>
           .
         </p>
