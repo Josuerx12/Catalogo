@@ -7,8 +7,10 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { TiShoppingCart } from "react-icons/ti";
 import CarouselProductImages from "../../components/productDetailCarousel";
 import { Auth } from "../../context/authContext";
+import { useCartStore } from "../../store/cartStore";
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState<number>(1);
+  const { addCart } = useCartStore();
   const { products } = ProductCommands();
   const { id } = useParams();
   const [produto, setProduto] = useState<Product | undefined>(undefined);
@@ -121,6 +123,7 @@ const ProductDetails = () => {
                 type="button"
                 disabled={user ? false : true}
                 style={{ width: "90%" }}
+                onClick={() => addCart(produto, quantity)}
                 className={
                   user
                     ? "btn btn-primary m-3 btn-lg text-capitalize"
