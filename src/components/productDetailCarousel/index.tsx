@@ -20,7 +20,7 @@ const CarouselProductImages = ({
             <img
               className="carrouselResponsive rounded"
               style={{ aspectRatio: "1", width: "300px" }}
-              src={`https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photo.photo}`}
+              src={`https://catalogo-product-pic.s3.us-east-2.amazonaws.com/${photo.photo}`}
               alt={photo._id}
             />
           </Carousel.Item>

@@ -38,7 +38,7 @@ const Products = ({ product }: { product: Product }) => {
         onLoad={() => setLoadingImage((prev) => !prev)}
         src={
           photos.length > 0
-            ? `https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photos[0].photo}`
+            ? `https://catalogo-product-pic.s3.us-east-2.amazonaws.com/${photos[0].photo}`
             : "/no-profile.jpg"
         }
       />

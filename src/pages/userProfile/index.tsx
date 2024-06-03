@@ -45,7 +45,7 @@ const User = () => {
         className="rounded shadow bg-body p-0"
         src={
           user?.photo
-            ? `https://userphotoscatalogo.s3.us-east-2.amazonaws.com/${user.photo}`
+            ? `https://catalogo-profile-pic.s3.us-east-2.amazonaws.com/${user.photo}`
             : "/no-profile.jpg"
         }
         onLoad={handlePhotoLoading}

@@ -32,7 +32,7 @@ const ItemCart = ({ product }: { product: ProductCart }) => {
           style={{ width: "100px", aspectRatio: "1" }}
           src={
             photos
-              ? `https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photos[0].photo}`
+              ? `https://catalogo-product-pic.s3.us-east-2.amazonaws.com/${photos[0].photo}`
               : ""
           }
           alt="Produto sem foto"

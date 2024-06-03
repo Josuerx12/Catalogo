@@ -73,7 +73,7 @@ const AdminEditProductModal = ({ show, handleShow, product }: props) => {
                       width: "12rem",
                       height: "12rem",
                     }}
-                    src={`https://productphotoscatalogo.s3.us-east-2.amazonaws.com/${photo.photo}`}
+                    src={`https://catalogo-product-pic.s3.us-east-2.amazonaws.com/${photo.photo}`}
                     alt={photo.photo}
                   />
                   <Button
