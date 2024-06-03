@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://catalogo-api-theta.vercel.app/";
+const url = "https://catalogofst.josuecarvalho.cloud/";
 
 export const api = axios.create({
   baseURL: url,
