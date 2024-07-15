@@ -4,7 +4,6 @@ import * as actionTypes from "./actionTypes";
 
 export const initialState: useAuthState = {
   user: undefined,
-  token: undefined,
   loading: false,
   errors: undefined,
 };
@@ -24,7 +23,7 @@ export const reducer = (state: useAuthState, action: Action) => {
     case actionTypes.CLEANERRORS:
       return { ...state, errors: undefined };
     case actionTypes.ENTERING:
-      return { ...state, token: action.payload, loading: false };
+      return { ...state, loading: false };
     case actionTypes.FETCHED:
       return {
         ...state,
