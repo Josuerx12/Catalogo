@@ -1,24 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "../../config/apiConnection";
-import Cookies from "js-cookie";
 import * as actionTypes from "./actionTypes";
 import { useReducer } from "react";
 import { initialState, reducer } from "./reducer";
-import { ProductCommands } from "../../context/productsContext";
+import { useFetchProducts } from "../useFetchProducts/useFetchProducts";
 
 export const useAdminProducts = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { getProducts } = ProductCommands();
-  const token = Cookies.get("refreshToken");
+  const { getProducts } = useFetchProducts();
 
   const addProduct = async (formDataProduct: FormData) => {
     dispatch({ type: actionTypes.sendingReq });
     try {
-      const res = await api.post("/products/new", formDataProduct, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.post("/products/new", formDataProduct);
       console.log(res.data.payload);
-      await getProducts();
+      await getProducts({});
       dispatch({ type: actionTypes.overReq });
     } catch (error: any) {
       console.log(error);
@@ -28,11 +24,9 @@ export const useAdminProducts = () => {
   const editProduct = async (id: string, formDataProduct: FormData) => {
     dispatch({ type: actionTypes.sendingReq });
     try {
-      const res = await api.patch(`/products/${id}`, formDataProduct, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.patch(`/products/${id}`, formDataProduct);
       console.log(res.data.payload);
-      await getProducts();
+      await getProducts({});
       dispatch({ type: actionTypes.overReq });
     } catch (error: any) {
       console.log(error);
@@ -42,11 +36,9 @@ export const useAdminProducts = () => {
   const deleteProduct = async (id: string) => {
     dispatch({ type: actionTypes.sendingReq });
     try {
-      await api.delete(`/products/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.delete(`/products/${id}`);
       dispatch({ type: actionTypes.overReq });
-      await getProducts();
+      await getProducts({});
     } catch (error: any) {
       console.log(error);
       dispatch({ type: actionTypes.overReq });
@@ -59,11 +51,9 @@ export const useAdminProducts = () => {
   const deleteImageProduct = async (productID: string, photoID: string) => {
     dispatch({ type: actionTypes.sendingReq });
     try {
-      await api.delete(`/products/${productID}/${photoID}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.delete(`/products/${productID}/${photoID}`);
       dispatch({ type: actionTypes.overReq });
-      await getProducts();
+      await getProducts({});
     } catch (error: any) {
       console.log(error);
       dispatch({ type: actionTypes.overReq });

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useReducer, useEffect } from "react";
 import { initialState, reducer } from "./reducer";
-import Cookies from "js-cookie";
 import * as actionTypes from "./actionTypes";
 import { api } from "../../config/apiConnection";
 import { Auth } from "../../context/authContext";
@@ -15,7 +14,6 @@ export type AdminCreateUserCredentials = {
 export const useAdminUsers = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user } = Auth();
-  const token = Cookies.get("refreshToken");
 
   useEffect(() => {
     getUsers();
@@ -24,9 +22,7 @@ export const useAdminUsers = () => {
   const getUsers = async () => {
     dispatch({ type: actionTypes.loading });
     try {
-      const res = await api.get("/auth/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.get("/auth/users");
       const data = await res.data;
       dispatch({ type: actionTypes.fetched, payload: data.payload.users });
     } catch (error: any) {
@@ -41,9 +37,7 @@ export const useAdminUsers = () => {
   const createUser = async (data: AdminCreateUserCredentials) => {
     dispatch({ type: actionTypes.sending });
     try {
-      const res = await api.post(`/auth/user/new`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.post(`/auth/user/new`, data);
       if (res.status === 200) {
         dispatch({ type: actionTypes.cleanErrors });
         await getUsers();
@@ -63,9 +57,7 @@ export const useAdminUsers = () => {
   const deleteUser = async (id: string) => {
     dispatch({ type: actionTypes.sending });
     try {
-      await api.delete(`/auth/user/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.delete(`/auth/user/${id}`);
       await getUsers();
       dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {
@@ -81,9 +73,7 @@ export const useAdminUsers = () => {
   const editUser = async (id: string, credentials: FormData) => {
     dispatch({ type: actionTypes.sending });
     try {
-      await api.patch(`/auth/editUser/${id}`, credentials, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.patch(`/auth/editUser/${id}`, credentials);
       await getUsers();
       dispatch({ type: actionTypes.reqResult });
     } catch (error: any) {

@@ -1,55 +1,21 @@
 import Table from "react-bootstrap/Table";
 import UsersInfo from "../../../components/dashboardAdmin/user/usersInfo";
 import { Admin } from "../../../context/adminContext";
-import { User } from "../../../interfaces/user/userInterface";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import { FaFilter, FaUserPlus } from "react-icons/fa";
 import { useState } from "react";
 import AdminCreateUserModal from "../../../components/dashboardAdmin/user/adminCreateUserModal";
-import { Pagination } from "react-bootstrap";
-import { usePagination } from "../../../hooks/usePagination/usePagination";
-import AdminUserFilter from "../../../components/dashboardAdmin/filters/adminUserFilter";
+// import { Pagination } from "react-bootstrap";
+// import { usePagination } from "../../../hooks/usePagination/usePagination";
+// import AdminUserFilter from "../../../components/dashboardAdmin/filters/adminUserFilter";
+import { User } from "../../../interfaces/user/userInterface";
 
 const UsersDashboard = () => {
   const { users, loading, userErrors } = Admin();
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
-  const [page, setPage] = useState(1);
-  const [showFilter, setShowFilter] = useState(false);
-  const [filters, setFilters] = useState({
-    id: "",
-    name: "",
-    email: "",
-  });
 
-  const { actualPage, total, totalPages, items } = usePagination({
-    items: users,
-    perPage: 10,
-    page: page,
-  });
-
-  function nextPage() {
-    if (totalPages > page) {
-      setPage((prev) => prev + 1);
-    }
-  }
-
-  function prevPage() {
-    if (page - 1 > 0) {
-      setPage((prev) => prev - 1);
-    }
-  }
-  const filteredUsers: User[] | undefined =
-    items?.filter((item): item is User => {
-      if (item && "_id" in item && "name" in item && "email" in item) {
-        return (
-          item._id.toLowerCase().includes(filters.id.toLowerCase()) &&
-          item.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-          item.email.toLowerCase().includes(filters.email.toLowerCase())
-        );
-      }
-      return false;
-    }) ?? undefined;
+  // const [showFilter, setShowFilter] = useState(false);
 
   return (
     <section
@@ -57,11 +23,11 @@ const UsersDashboard = () => {
       style={{ flex: "1" }}
     >
       <div className="d-flex flex-column  gap-3">
-        <AdminUserFilter
+        {/* <AdminUserFilter
           show={showFilter}
           handleShow={() => setShowFilter((prev) => !prev)}
           setFilter={setFilters}
-        />
+        /> */}
         <AdminCreateUserModal
           show={showCreateUserModal}
           handleShow={() => setShowCreateUserModal((prev) => !prev)}
@@ -73,7 +39,8 @@ const UsersDashboard = () => {
         >
           <Button
             variant="primary"
-            onClick={() => setShowFilter((prev) => !prev)}
+            // onClick={() => setShowFilter((prev) => !prev)}
+            disabled
           >
             Filtrar Usuários <FaFilter style={{ color: "#fafafa" }} />
           </Button>
@@ -115,17 +82,15 @@ const UsersDashboard = () => {
             <tbody>
               {!loading &&
                 !userErrors &&
-                filteredUsers?.map((user) => (
+                Array.isArray(users) &&
+                users.map((user) => (
                   <UsersInfo user={user as User} key={user._id} />
                 ))}
             </tbody>
           </Table>
         )}
-        {filteredUsers?.length === 0 && (
-          <p className="text-center">Nenhum usuário encontrado...</p>
-        )}
       </div>
-      <div className="d-flex flex-column justify-content-center align-items-center">
+      {/* <div className="d-flex flex-column justify-content-center align-items-center">
         <Pagination>
           <Pagination.Prev onClick={prevPage} />
           {Array.from(Array(totalPages)).map((_, i) => (
@@ -144,7 +109,7 @@ const UsersDashboard = () => {
           {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
           resultados.
         </p>
-      </div>
+      </div> */}
     </section>
   );
 };

@@ -1,69 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Table from "react-bootstrap/Table";
-import { ProductCommands } from "../../../context/productsContext";
 import ProductInfos from "../../../components/dashboardAdmin/products/productInfo";
 import Button from "react-bootstrap/Button";
 import { LuPackagePlus } from "react-icons/lu";
 import { FaFilter } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminCreateProductModal from "../../../components/dashboardAdmin/products/adminCreateProductModal";
-import Pagination from "react-bootstrap/Pagination";
-import { usePagination } from "../../../hooks/usePagination/usePagination";
 import { Product } from "../../../interfaces/product/productInterface";
+
+import { useFetchProducts } from "../../../hooks/useFetchProducts/useFetchProducts";
+import { useQuery } from "react-query";
 import AdminProductFilter from "../../../components/dashboardAdmin/filters/adminProductFilter";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { Pagination } from "react-bootstrap";
+import { L_ELLIPISIS, R_ELLIPISIS } from "../../../constants/ellipisis";
+import { usePagination } from "../../../hooks/usePagination/usePagination";
 
 const ProductsDashboard = () => {
-  const { products } = ProductCommands();
+  const location = useLocation();
+  const [params, setParams] = useSearchParams(location.search);
+
+  const searchByName = params.get("name");
+  const actualPage = params.get("actualPage");
+
+  const { getProducts } = useFetchProducts();
   const [showAddProductModal, setShowAddProductModal] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState({
-    id: "",
-    name: "",
-    category: "",
-    description: "",
-  });
-  const [page, setPage] = useState(1);
 
-  const { actualPage, total, totalPages, items } = usePagination({
-    items: products,
-    perPage: 10,
-    page: page,
+  const { isLoading, data, refetch } = useQuery(
+    ["products"],
+    async () =>
+      await getProducts({
+        limit: "20",
+        name: searchByName ? searchByName : "",
+        page: actualPage ? actualPage : "1",
+      })
+  );
+
+  const { avaiablePages, currentPage } = usePagination({
+    currentPage: data?.currentPage as number,
+    totalPages: data?.totalPages as number,
   });
 
-  function nextPage() {
-    if (totalPages > page) {
-      setPage((prev) => prev + 1);
-    }
+  useEffect(() => {
+    refetch();
+  }, [searchByName, actualPage]);
+
+  if (isLoading) {
+    return <p>Carregando....</p>;
   }
 
-  function prevPage() {
-    if (page - 1 > 0) {
-      setPage((prev) => prev - 1);
-    }
-  }
-
-  const filteredProducts: Product[] | undefined =
-    items?.filter((item): item is Product => {
-      if (
-        item &&
-        "_id" in item &&
-        "name" in item &&
-        "category" in item &&
-        "description" in item
-      ) {
-        return (
-          item._id.toLowerCase().includes(filters.id) &&
-          item.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-          item.category
-            .toLowerCase()
-            .includes(filters.category.toLowerCase()) &&
-          item.description
-            .toLowerCase()
-            .includes(filters.description.toLowerCase())
-        );
-      }
-      return false;
-    }) ?? undefined;
   return (
     <section
       className="d-flex flex-column justify-content-between"
@@ -77,8 +63,6 @@ const ProductsDashboard = () => {
         <AdminProductFilter
           show={showFilters}
           handleShow={() => setShowFilters((prev) => !prev)}
-          setFilter={setFilters}
-          products={items as Product[]}
         />
         <h3 className="text-center ">Dashboard de produtos </h3>
         <div
@@ -102,7 +86,7 @@ const ProductsDashboard = () => {
           </Button>
         </div>
 
-        {Array.isArray(products) && products?.length > 0 ? (
+        {data && data.products?.length > 0 ? (
           <Table
             striped
             bordered
@@ -122,7 +106,7 @@ const ProductsDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts?.map((product) => (
+              {data.products?.map((product) => (
                 <ProductInfos key={product._id} product={product as Product} />
               ))}
               :
@@ -145,32 +129,33 @@ const ProductsDashboard = () => {
             </p>
           </div>
         )}
-        {filteredProducts?.length === 0 && (
-          <p className="text-center">
-            Nenhum produto encontrado com base nos filtros...
-          </p>
-        )}
       </div>
-      <div className="d-flex flex-column justify-content-center align-items-center">
-        <Pagination>
-          <Pagination.Prev onClick={prevPage} />
-          {Array.from(Array(totalPages)).map((_, i) => (
+
+      <Pagination style={{ margin: "1rem auto" }}>
+        {avaiablePages.map((page) => {
+          if (page === L_ELLIPISIS || page === R_ELLIPISIS) {
+            return <Pagination.Ellipsis />;
+          }
+          return (
             <Pagination.Item
-              key={i + 1}
-              active={page === i + 1 ? true : false}
-              onClick={() => setPage(i + 1)}
+              onClick={() => {
+                setParams({
+                  actualPage: String(page),
+                  name: String(searchByName),
+                });
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }}
+              disabled={page === currentPage}
+              active={Number(page) === Number(currentPage)}
             >
-              {i + 1}
+              {page}
             </Pagination.Item>
-          ))}
-          <Pagination.Next onClick={nextPage} />
-        </Pagination>
-        <p>
-          Mostrando {actualPage + 1} de{" "}
-          {actualPage + 10 < total ? actualPage + 10 : total} total de {total}{" "}
-          resultados.
-        </p>
-      </div>
+          );
+        })}
+      </Pagination>
     </section>
   );
 };

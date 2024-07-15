@@ -31,7 +31,7 @@ const Products = ({ product }: { product: Product }) => {
             : {
                 width: "100%",
                 aspectRatio: "1",
-                objectFit: "fill",
+                objectFit: "cover",
               }
         }
         variant="top"
