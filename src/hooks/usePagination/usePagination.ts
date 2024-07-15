@@ -1,36 +1,52 @@
-import { Product } from "../../interfaces/product/productInterface";
-import { User } from "../../interfaces/user/userInterface";
+import { L_ELLIPISIS, R_ELLIPISIS } from "../../constants/ellipisis";
 
 type Props = {
-  items?: Product | Product[] | User | User[];
-  perPage: number;
-  page: number;
+  totalPages: number;
+  currentPage: number;
 };
 
 type FunctionReturn = {
-  actualPage: number;
-  total: number;
-  totalPages: number;
-  items?: (Product | User)[];
+  currentPage: number;
+  avaiablePages: number[];
+};
+
+const generatePages = (page: number, totalPages: number) => {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }).map((_, i) => i + 1);
+  }
+  if (page < 3) {
+    return [1, 2, 3, L_ELLIPISIS, totalPages - 1, totalPages];
+  }
+  if (page === 3) {
+    return [1, 2, 3, 4, L_ELLIPISIS, totalPages - 1, totalPages];
+  }
+
+  if (page > totalPages - 2) {
+    return [1, 2, L_ELLIPISIS, totalPages - 2, totalPages - 1, totalPages];
+  }
+
+  if (page === totalPages - 2) {
+    return [
+      1,
+      2,
+      L_ELLIPISIS,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+
+  return [1, L_ELLIPISIS, page - 1, page, page + 1, R_ELLIPISIS, totalPages];
 };
 
 export const usePagination = ({
-  items,
-  perPage,
-  page,
+  currentPage,
+  totalPages,
 }: Props): FunctionReturn => {
-  const offset = perPage * (page - 1);
-  const totalPages = Array.isArray(items)
-    ? Math.ceil(items.length / perPage)
-    : 0;
-  const paginatedItems = Array.isArray(items)
-    ? items.slice(offset, perPage * page)
-    : undefined;
-
+  const pages = generatePages(Number(currentPage), Number(totalPages));
   return {
-    actualPage: offset,
-    total: Array.isArray(items) ? items.length : 0,
-    totalPages: totalPages,
-    items: paginatedItems,
+    currentPage,
+    avaiablePages: pages,
   };
 };
