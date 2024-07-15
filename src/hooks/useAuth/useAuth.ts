@@ -17,22 +17,20 @@ export const useAuth = () => {
   const tokenFromCookies = Cookies.get("refreshToken");
   useEffect(() => {
     if (tokenFromCookies) {
-      dispatch({ type: actionTypes.ENTERING, payload: tokenFromCookies });
-    }
-    if (state.token) {
+      api.defaults.headers.common.Authorization = `Bearer ${tokenFromCookies}`;
       getUser();
     }
-  }, [!state.token]);
+    api.defaults.headers.common.Authorization = ``;
+  }, [tokenFromCookies]);
 
   const getUser = async () => {
     dispatch({ type: actionTypes.LOADING });
     try {
-      const res = await api.get("/auth/user", {
-        headers: { Authorization: `Bearer ${state.token}` },
-      });
+      const res = await api.get("/auth/user");
       const data: userPayload = await res.data.payload;
       dispatch({ type: actionTypes.FETCHED, payload: data.user });
     } catch (error: any) {
+      api.defaults.headers.common.Authorization = ``;
       dispatch({
         type: actionTypes.ERROR,
         payload: error.response.data.payload.errors,
@@ -49,7 +47,7 @@ export const useAuth = () => {
       const data: authPayload = await res.data;
 
       Cookies.set("refreshToken", data.payload.token, { expires: 0.5 });
-      dispatch({ type: actionTypes.ENTERING, payload: data.payload.token });
+      api.defaults.headers.common.Authorization = `Bearer ${tokenFromCookies}`;
 
       await getUser();
     } catch (error: any) {
@@ -74,7 +72,6 @@ export const useAuth = () => {
       const data = await res.data;
 
       Cookies.set("refreshToken", data.payload.token, { expires: 0.5 });
-      dispatch({ type: actionTypes.ENTERING, payload: data.payload.token });
       await getUser();
     } catch (error: any) {
       dispatch({
@@ -86,11 +83,7 @@ export const useAuth = () => {
 
   const editUser = async (formData: FormData) => {
     try {
-      await api.patch("/auth/editUser", formData, {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
-        },
-      });
+      await api.patch("/auth/editUser", formData);
       await getUser();
     } catch (error: any) {
       console.log(error);
