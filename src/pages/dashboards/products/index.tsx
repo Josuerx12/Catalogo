@@ -141,7 +141,7 @@ const ProductsDashboard = () => {
               onClick={() => {
                 setParams({
                   actualPage: String(page),
-                  name: String(searchByName),
+                  name: searchByName ? String(searchByName) : "",
                 });
                 window.scrollTo({
                   top: 0,
