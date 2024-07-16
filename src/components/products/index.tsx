@@ -7,7 +7,7 @@ import { Product } from "../../interfaces/product/productInterface";
 import { Auth } from "../../context/authContext";
 import { useCartStore } from "../../store/cartStore";
 const Products = ({ product }: { product: Product }) => {
-  const { _id, category, name, photos, unit, stock, value } = product;
+  const { _id, category, name, photos, unit, stock } = product;
   const [quantity, setQuantity] = useState<number>(1);
   const { addCart } = useCartStore();
   const { user } = Auth();
@@ -61,18 +61,20 @@ const Products = ({ product }: { product: Product }) => {
             ))}
           </select>
         </Card.Text>
-        <Card.Text
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: "600",
-            textAlign: "center",
-          }}
-        >
-          {value.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          })}
-        </Card.Text>
+        {/* {value && (
+          <Card.Text
+            style={{
+              fontSize: "1.4rem",
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+          >
+            {value.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Card.Text>
+        )} */}
         <div className="d-grid gap-2">
           <Link to={`/produto/${_id}`} className="btn btn-primary">
             Detalhes do produto

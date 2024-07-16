@@ -10,10 +10,6 @@ import { Link } from "react-router-dom";
 const ProductInfos = ({ product }: { product: Product }) => {
   const createdAt = new Date(product.createdAt).toLocaleString("pt-BR");
   const updatedAt = new Date(product.updatedAt).toLocaleString("pt-BR");
-  const price = product.value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
 
   const [showEditProductModal, setShowEditProductModal] = useState(false);
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
@@ -45,7 +41,7 @@ const ProductInfos = ({ product }: { product: Product }) => {
           <span style={{ fontWeight: "500" }}>{product.stock} </span>
           <span style={{ fontWeight: "700" }}>{product.unit}</span>
         </td>
-        <td className="text-center">{price}</td>
+
         <td className="text-center">{createdAt}</td>
         <td className="text-center">{updatedAt}</td>
         <td className="text-center">

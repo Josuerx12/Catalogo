@@ -1,7 +1,9 @@
 import { Product } from "../../../../interfaces/product/productInterface";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Admin } from "../../../../context/adminContext";
+import { useMutation, useQueryClient } from "react-query";
+import { useAdminProducts } from "../../../../hooks/useAdminProducts/useAdminProducts";
+import { toast } from "react-toastify";
 
 type props = {
   show: boolean;
@@ -10,11 +12,22 @@ type props = {
 };
 
 const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
-  const { deleteProduct, productRequesting } = Admin();
+  const { deleteProduct } = useAdminProducts();
 
-  const handleDeleteProduct = async () => {
-    await deleteProduct(product._id);
-  };
+  const query = useQueryClient();
+
+  const { mutateAsync, isLoading } = useMutation(
+    ["deleteProduct-" + product._id],
+    deleteProduct,
+    {
+      onSuccess: () =>
+        Promise.all([
+          query.invalidateQueries("products"),
+          toast.success(`Produto ID: ${product._id} deletado com sucesso!`),
+        ]),
+    }
+  );
+
   return (
     <Modal show={show} onHide={handleShow} size="xl" backdrop="static">
       <Modal.Header closeButton>
@@ -30,19 +43,15 @@ const AdminDeleteProductModal = ({ show, handleShow, product }: props) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="danger"
-          disabled={productRequesting ? true : false}
-          onClick={handleShow}
-        >
+        <Button variant="danger" disabled={isLoading} onClick={handleShow}>
           Cancelar
         </Button>
         <Button
-          onClick={handleDeleteProduct}
-          disabled={productRequesting ? true : false}
-          className={productRequesting ? "btn btn-warning" : "btn btn-success"}
+          onClick={async () => await mutateAsync(product._id)}
+          disabled={isLoading}
+          className={isLoading ? "btn btn-warning" : "btn btn-success"}
         >
-          {productRequesting ? "Deletando Produto" : "Deletar Produto"}
+          {isLoading ? "Deletando Produto" : "Deletar Produto"}
         </Button>
       </Modal.Footer>
     </Modal>

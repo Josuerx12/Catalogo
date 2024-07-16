@@ -1,8 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Admin } from "../../../../context/adminContext";
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { useAdminProducts } from "../../../../hooks/useAdminProducts/useAdminProducts";
+import { useMutation, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
 
 type props = {
   show: boolean;
@@ -12,47 +14,34 @@ type props = {
 const avaiableUnits = ["UN", "KG", "TON", "M"];
 
 const AdminCreateProductModal = ({ show, handleShow }: props) => {
-  const [images, setImages] = useState<FileList | null>(null);
-  const [newProductCredentials, setNewProductCredentials] = useState({
-    name: null,
-    category: null,
-    stock: null,
-    unit: null,
-    value: null,
-    description: null,
-  });
-  const { addProduct, productRequesting } = Admin();
+  const { addProduct } = useAdminProducts();
+
+  const query = useQueryClient();
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const formData = new FormData();
-
-  if (newProductCredentials.name)
-    formData.append("name", newProductCredentials.name);
-  if (newProductCredentials.category)
-    formData.append("category", newProductCredentials.category);
-  if (newProductCredentials.stock)
-    formData.append("stock", parseInt(newProductCredentials.stock).toString());
-  if (newProductCredentials.unit)
-    formData.append("unit", newProductCredentials.unit);
-  if (newProductCredentials.value)
-    formData.append(
-      "value",
-      parseFloat(newProductCredentials.value).toString()
-    );
-  if (newProductCredentials.description)
-    formData.append("description", newProductCredentials.description);
-  if (images) {
-    for (let i = 0; i < images.length; i++) {
-      formData.append("product-pics", images[i]);
+  const { mutateAsync, isLoading } = useMutation(
+    ["createNewProduct"],
+    addProduct,
+    {
+      onSuccess: () =>
+        Promise.all([
+          toast.success("Novo produto cadastrado com sucesso!"),
+          handleShow(),
+          query.invalidateQueries("products"),
+        ]),
+      onError: () => {
+        toast.error("Erro ao criar novo produto, contacte o administrador!");
+      },
     }
-  }
+  );
 
-  const handleAddProduct = async (e: React.FormEvent) => {
+  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await addProduct(formData);
-    handleShow();
+    const credentials = new FormData(e.currentTarget);
+
+    await mutateAsync(credentials);
   };
 
   return (
@@ -67,12 +56,6 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             <Form.Control
               name="name"
               minLength={10}
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
               type="text"
               required
               placeholder="Adicione um nome para o novo produto."
@@ -83,12 +66,6 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             <Form.Control
               minLength={5}
               name="category"
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
               type="text"
               required
               placeholder="Adicione uma categoria para o novo produto."
@@ -98,12 +75,6 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             <Form.Label>Quantidade:</Form.Label>
             <Form.Control
               name="stock"
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
               type="string"
               pattern="^[1-9]\d*$"
               required
@@ -112,16 +83,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Unidade de Medida do Produto:</Form.Label>
-            <Form.Select
-              required
-              name="unit"
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
-            >
+            <Form.Select required name="unit">
               <option value="">Selecione uma medida</option>
               {avaiableUnits.map((option, index) => (
                 <option key={index} value={option}>
@@ -136,13 +98,6 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
               type="string"
               pattern="^[1-9]\d*(\.\d+)?$"
               step="any"
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
-              required
               placeholder="Preço do produto"
               name="value"
             />
@@ -150,12 +105,6 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
           <Form.Group className="mb-3 d-flex flex-column">
             <Form.Label>Descrição do Produto:</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setNewProductCredentials((prev) => ({
-                  ...prev,
-                  [e.target.name]: e.target.value,
-                }))
-              }
               name="description"
               as="textarea"
               rows={4}
@@ -165,9 +114,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
           <Form.Group>
             <Form.Label>Selecione as Fotos do Produto:</Form.Label>
             <Form.Control
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setImages(e.target.files)
-              }
+              name="product-pics"
               type="file"
               multiple={true}
               accept="image/*"
@@ -176,7 +123,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        {productRequesting ? (
+        {isLoading ? (
           <Button variant="danger" disabled onClick={handleShow}>
             Cancelar
           </Button>
@@ -185,7 +132,7 @@ const AdminCreateProductModal = ({ show, handleShow }: props) => {
             Cancelar
           </Button>
         )}
-        {productRequesting ? (
+        {isLoading ? (
           <Button variant="warning" disabled>
             Criando Produto
           </Button>
