@@ -99,7 +99,6 @@ const ProductsDashboard = () => {
                 <th className="text-center text-capitalize">nome do produto</th>
                 <th className="text-center text-capitalize">categoria</th>
                 <th className="text-center text-capitalize">estoque</th>
-                <th className="text-center text-capitalize">valor</th>
                 <th className="text-center text-capitalize">adicionado dia</th>
                 <th className="text-center text-capitalize">atualizado dia</th>
                 <th className="text-center text-capitalize">Ações</th>

@@ -92,7 +92,7 @@ const ProductDetails = () => {
                   </h5>
                   <div className="d-flex align-items-center gap-2 m-2">
                     <Form.Label style={{ fontSize: "1.2rem" }}>
-                      datas disponiveis:
+                      Unidades disponíveis:
                     </Form.Label>
                     <Form.Select
                       disabled={user ? false : true}
@@ -106,7 +106,7 @@ const ProductDetails = () => {
                       ))}
                     </Form.Select>
                   </div>
-                  <h3 style={{ fontSize: "1.6rem" }} className="m-2">
+                  {/* <h3 style={{ fontSize: "1.6rem" }} className="m-2">
                     Valor:{" "}
                     <span>
                       {data &&
@@ -115,7 +115,7 @@ const ProductDetails = () => {
                           currency: "BRL",
                         })}
                     </span>
-                  </h3>
+                  </h3> */}
                 </div>
                 <div style={{ flex: "1", flexBasis: "200px" }}>
                   <Form.Control
