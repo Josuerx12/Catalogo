@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useEffect } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "../hooks/useAuth/useAuth";
 import {
@@ -38,16 +44,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     getUser,
   } = useAuth();
 
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   const userToken = Cookies.get("refreshToken");
   useEffect(() => {
     const loadUser = async () => {
       if (userToken) {
         api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
         await getUser();
+        setIsLoadingUser(false);
       }
     };
     loadUser();
   }, [userToken]);
+
+  if (isLoadingUser) {
+    return (
+      <div
+        style={{
+          flex: 1,
+          width: "100%",
+          minHeight: "100dvh",
+          height: "100%",
+          background: "#999",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ fontSize: "2rem" }}>Carregando dados, aguarde...</p>
+      </div>
+    );
+  }
 
   return (
     <authContext.Provider
