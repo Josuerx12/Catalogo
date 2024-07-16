@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "js-cookie";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import * as actionTypes from "./actionTypes";
 import { api } from "../../config/apiConnection";
 import {
@@ -13,15 +13,6 @@ import { initialState, reducer } from "./reducer";
 
 export const useAuth = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const tokenFromCookies = Cookies.get("refreshToken");
-  useEffect(() => {
-    if (tokenFromCookies) {
-      api.defaults.headers.common.Authorization = `Bearer ${tokenFromCookies}`;
-      getUser();
-    }
-    api.defaults.headers.common.Authorization = ``;
-  }, [tokenFromCookies]);
 
   const getUser = async () => {
     dispatch({ type: actionTypes.LOADING });
@@ -47,7 +38,7 @@ export const useAuth = () => {
       const data: authPayload = await res.data;
 
       Cookies.set("refreshToken", data.payload.token, { expires: 0.5 });
-      api.defaults.headers.common.Authorization = `Bearer ${tokenFromCookies}`;
+      api.defaults.headers.common.Authorization = `Bearer ${data.payload.token}`;
 
       await getUser();
     } catch (error: any) {

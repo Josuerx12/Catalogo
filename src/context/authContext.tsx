@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext, useContext, useEffect } from "react";
+import Cookies from "js-cookie";
 import { useAuth } from "../hooks/useAuth/useAuth";
 import {
   Errors,
@@ -6,6 +7,7 @@ import {
   loginCredentials,
   registerCredentials,
 } from "../interfaces/user/userInterface";
+import { api } from "../config/apiConnection";
 
 type context = {
   user?: User;
@@ -35,6 +37,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     cleanErrors,
     getUser,
   } = useAuth();
+
+  const userToken = Cookies.get("refreshToken");
+  useEffect(() => {
+    const loadUser = async () => {
+      if (userToken) {
+        api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
+        await getUser();
+      }
+    };
+    loadUser();
+  }, [userToken]);
+
   return (
     <authContext.Provider
       value={{
