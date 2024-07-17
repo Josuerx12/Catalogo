@@ -52,8 +52,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (userToken) {
         api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
         await getUser();
-        setIsLoadingUser(false);
       }
+      setIsLoadingUser(false);
     };
     loadUser();
   }, [userToken]);
